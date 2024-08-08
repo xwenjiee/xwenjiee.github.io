@@ -1,18 +1,18 @@
 import "./App.css";
-import { Link } from "react-router-dom";
+import CustomButton from "./components/Button/Button";
 import Instructions from "./components/Instructions";
 
 function App() {
   return (
     <>
-      <h1>Hello, Welcome to Connect 4</h1>
-      <div className="card">
-        <button type="button">
-          <Link to="/game">Start Game</Link>
-        </button>
+      {/* <h1>Hello, Welcome to Connect 4</h1> */}
+      <div className="root">
+        <img alt="Connect 4 logo" src="src\assets\logo-removebg-preview.png" />
+        <div className="card">
+          <CustomButton label="Start Game" to="/game" />
+          <Instructions />
+        </div>
       </div>
-
-      <Instructions />
     </>
   );
 }

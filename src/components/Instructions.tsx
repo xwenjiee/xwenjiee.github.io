@@ -1,25 +1,13 @@
 import "../App.css";
+import CloseIcon from "@mui/icons-material/Close";
+import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-
-// const style = {
-//     top: '50%',
-//     left: '50%',
-//     transform: 'translate(-50%, -50%)',
-//     width: '50%',
-//     bgcolor: 'background.paper',
-//     border: '2px solid #000',
-//     boxShadow: 24,
-//     p: 4,
-//     color: 'black',
-//     overflow: "auto",
-//     height: "70%",
-//   };
-
-// const div = ;
+import CustomButton from "./Button/Button";
+import styles from "./Instructions.module.css";
 
 function Instructions() {
   const [open, setOpen] = React.useState(false);
@@ -28,31 +16,35 @@ function Instructions() {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Instructions and Rules</Button>
+      <CustomButton label="Instructions and Rules" primary onClick={handleOpen} startIcon={<QuestionMarkIcon />} />
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box className="instructions-modal">
-          <div className="close-icon-div">
-            <Button className="close-icon" onClick={() => handleClose()}>
-              X
-            </Button>
+        <Box className={`${styles.instructionsModal}`}>
+          <div className={`${styles.closeIconDiv}`}>
+            <IconButton className={`${styles.closeIcon}`} onClick={handleClose}>
+              <CloseIcon />
+            </IconButton>
           </div>
           <Typography sx={{ fontWeight: "bold" }} variant="h6" component="h2">
             <u>Connect 4 Game Instructions and Rules</u>
           </Typography>
-          <Typography sx={{ padding: "5px" }}>
-            <img className="instructions-gif" alt="gif of placing tokens" src="src\assets\placing-tokens.gif" />
+          <div style={{ borderRadius: "5px" }}>
+            <img
+              className={`${styles.instructionsGif}`}
+              alt="gif of placing tokens"
+              src="src\assets\placing-tokens.gif"
+            />
 
-            <p className="instructions-section">Objective</p>
+            <p className={`${styles.instructionsSection}`}>Objective</p>
             <p>
               The objective of Connect 4 is to be the first player to form a horizontal, vertical, or diagonal line of
               four of your own discs.
             </p>
-            <p className="instructions-section">How to Play</p>
+            <p className={`${styles.instructionsSection}`}>How to Play</p>
             <ul>
               <li>
                 <strong>Start the Game:</strong> The game is played on a grid with 6 rows and 7 columns.
@@ -88,7 +80,7 @@ function Instructions() {
                 the game ends in a draw.
               </li>
             </ul>
-            <p className="instructions-section">Rules</p>
+            <p className={`${styles.instructionsSection}`}>Rules</p>
             <ul>
               <li>
                 <strong>Alternating Turns:</strong> You and the computer alternate turns, and only one disc can be
@@ -103,7 +95,7 @@ function Instructions() {
                 in a row or when all columns are full, resulting in a draw.
               </li>
             </ul>
-            <p className="instructions-section">Tips</p>
+            <p className={`${styles.instructionsSection}`}>Tips</p>
             <div>
               <ul>
                 <li>Plan ahead and try to anticipate the computer&rsquo;s moves.</li>
@@ -112,7 +104,7 @@ function Instructions() {
               </ul>
               Good luck! :)
             </div>
-          </Typography>
+          </div>
         </Box>
       </Modal>
     </div>

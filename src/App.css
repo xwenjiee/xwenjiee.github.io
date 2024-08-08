@@ -1,43 +1,18 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+  background-color: dark;
 }
 
-.instructions-modal {
-  position: absolute; /* or relative depending on your use case */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 50%;
-  background-color: white; /* Define this variable in your global styles or use a specific color */
-  border: 2px solid #000;
-  box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.2); /* Customize the shadow as needed */
-  padding: 16px; /* 'p: 4' translates to 16px in padding */
-  color: black;
-  overflow: auto;
-  height: 70%;
-
+.root {
+  margin : 2em;
+  padding: 2em;
 }
 
-.close-icon-div {
-  position: sticky;
-  top: 0;
+.card {
+  margin : 10px;
 
-
-}
-.close-icon {
-  /* position: fixed; */
-  /* position: sticky; */
-  /* top: 10px; */
-  /* right: 10px; */
-  float: right; 
-  /* width: 0; */
-  color: red;
-  cursor: pointer;
-  border-radius: 3px;
-  
 }
 
 .turn-indicator {
@@ -51,14 +26,3 @@ float:left;
 
 }
 
-.instructions-gif {
-  float:right;
-  width: 30%;
-  margin-right: 3px;
-}
-
-.instructions-section {
-  font-size: large;
-  font-weight: bold;
-
-}

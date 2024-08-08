@@ -1,6 +1,6 @@
-import { Alert, Button, Snackbar, SnackbarCloseReason } from "@mui/material";
+import { Alert, Snackbar, SnackbarCloseReason } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import CustomButton from "../components/Button/Button";
 import Instructions from "../components/Instructions";
 import styles from "./Board.module.css";
 
@@ -232,12 +232,17 @@ function Board() {
     if (item === "lol") {
       return "red";
     }
-    return "black";
+    return "#272727";
   }
 
   return (
     <>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={open}
+        autoHideDuration={2000}
+        onClose={handleClose}
+      >
         <Alert onClose={handleClose} severity="error" variant="filled" sx={{ width: "100%" }}>
           You cannot place tokens in a full column!
         </Alert>
@@ -267,7 +272,7 @@ function Board() {
                   <div
                     id={`col-${columnIndex}-row-${rowIndex}`}
                     // key={`${columnIndex}-${rowIndex}`}
-                    className={styles.gridItem}
+                    className={`${getTokenType(item) === "#272727" ? styles.gridItemEmpty : styles.gridItem} }`}
                     style={{ backgroundColor: getTokenType(item) }}
                   />
                 ))}
@@ -280,14 +285,15 @@ function Board() {
 }
 function TokenIndicator() {
   return (
-    <div className={`${styles.cardContent}`}>
-      <div className={`${styles.card}`}>
-        {" "}
-        <h1>Your token: </h1> <div className={styles.tokenSample} style={{ backgroundColor: "pink" }} />
-      </div>
-      <div className={`${styles.card}`}>
-        <h1>Computer&rsquo;s token: </h1>
-        <div className={styles.tokenSample} style={{ backgroundColor: "red" }} />
+    <div className={`${styles.cardContent} ${styles.legendSection}`}>
+      <div className={`${styles.top}`}>
+        <div className={`${styles.card}`}>
+          <h1>Your token: </h1> <div className={styles.tokenSample} style={{ backgroundColor: "pink" }} />
+        </div>
+        <div className={`${styles.card}`}>
+          <h1>Computer&rsquo;s token: </h1>
+          <div className={styles.tokenSample} style={{ backgroundColor: "red" }} />
+        </div>
       </div>
     </div>
   );
@@ -305,21 +311,21 @@ export default function Game() {
   // const turn = "Wen Jie";
   return (
     <>
-      <h1>Game has commenced...</h1>
-
-      <Snackbar>
-        <Alert severity="error">This is an error Alert.</Alert>
-      </Snackbar>
       {/* <TurnIndicator turn={turn}></TurnIndicator> */}
-      <div className={styles.card}>
-        <TokenIndicator />
-        <Board />
+      <img alt="Connect 4 logo" className={`${styles.logo}`} src="src\assets\logo-removebg-preview.png" />
+      <div>
+        <div className={`${styles.section} ${styles.card}`}>
+          <TokenIndicator />
+          <Board />
+        </div>
+        <div className={`${styles.section}`}>
+          <div className={`${styles.buttonsDiv}`}>
+            <CustomButton label="Restart Game" />
+            <CustomButton label="End Game" to="/" />
+            <Instructions />
+          </div>
+        </div>
       </div>
-      <Button>Restart Game</Button>
-      <Button>
-        <Link to="/">End Game</Link>
-      </Button>
-      <Instructions />
     </>
   );
 }
