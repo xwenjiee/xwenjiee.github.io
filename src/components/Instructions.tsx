@@ -1,4 +1,4 @@
-import "../App.css";
+import "../pages/App.css";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
@@ -36,7 +36,7 @@ function Instructions() {
         aria-describedby="modal-modal-description"
       >
         <Box className="instructions-modal">
-          <div className="close-icon-div">
+          <div className="close-icon-container">
             <Button className="close-icon" onClick={() => handleClose()}>
               X
             </Button>
