@@ -1,7 +1,7 @@
 import CustomButton from "../components/Button/Button";
 import Instructions from "../components/Instructions";
 import Board from "./Board";
-import styles from "./Board.module.css";
+import styles from "./Game.module.css";
 
 function TokenIndicator() {
   return (
@@ -30,14 +30,14 @@ export default function Game() {
   return (
     <>
       {/* <TurnIndicator turn={turn}></TurnIndicator> */}
-      <img alt="Connect 4 logo" className={`${styles.logo}`} src="src\assets\logo-removebg-preview.png" />
+      <img alt="Connect 4 logo" className={styles.logo} src="src\assets\logo-removebg-preview.png" />
       <div>
         <TokenIndicator />
         <div className={`${styles.section} ${styles.card}`}>
           <Board />
         </div>
-        <div className={`${styles.section}`}>
-          <div className={`${styles.buttonsDiv}`}>
+        <div className={styles.section}>
+          <div className={styles.buttonsDiv}>
             <CustomButton label="Restart Game" />
             <CustomButton label="End Game" to="/" />
             <Instructions label="" />

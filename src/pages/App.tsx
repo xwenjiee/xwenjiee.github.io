@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.module.css";
 import CustomButton from "../components/Button/Button";
 import Instructions from "../components/Instructions";
 

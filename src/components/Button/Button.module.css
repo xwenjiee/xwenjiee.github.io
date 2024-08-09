@@ -47,8 +47,12 @@
   transform: translateY(-2px) !important;
 }
 
+
 .front:hover {
   background: hsl(345, 100%, 36%) !important;
+  transform: translateY(-4px)!important;
+  transition: transform 200ms !important;
+
 }
 
 .help:hover {

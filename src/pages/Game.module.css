@@ -1,0 +1,46 @@
+.card {
+    display: flex;
+    align-items: center;
+}
+
+
+.tokenSample {
+    background-color: #f0f0f0;
+    border: 1px solid #ffffff;
+    margin: 0 0 0 20px;
+    text-align: center;
+    border-radius: 50%;
+    color: transparent;
+    min-width: 30px;
+    min-height: 30px;
+    width: 30px;
+    height: 30px
+
+}
+
+.logo {
+    height: 15%;
+    width: auto
+}
+
+.legendSection {
+    color: white;
+    padding: 10px;
+    font-size: small;
+    text-align: left;
+    display: flex;
+    justify-content: space-evenly;
+   
+}
+
+.section {
+    margin-bottom: 2em;
+}
+
+
+.buttonsDiv {
+    width:max-content;
+    margin: auto;
+    display:flex;
+}
+

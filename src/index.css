@@ -3,7 +3,16 @@
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #272727;
+  font-family: "Space Mono", monospace;
+  font-style: normal;
+  font-size: large;
 
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
 }
 /*
 a {

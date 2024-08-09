@@ -236,7 +236,12 @@ function Board() {
 
   return (
     <>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+      <Snackbar
+        open={open}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        autoHideDuration={2000}
+        onClose={handleClose}
+      >
         <Alert onClose={handleClose} severity="error" variant="filled" sx={{ width: "100%" }}>
           You cannot place tokens in a full column!
         </Alert>
