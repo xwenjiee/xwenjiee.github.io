@@ -5,15 +5,13 @@ import styles from "./Board.module.css";
 
 function TokenIndicator() {
   return (
-    <div className={`${styles.cardContent} ${styles.legendSection}`}>
-      <div className={`${styles.top}`}>
-        <div className={`${styles.card}`}>
-          <h1>Your token: </h1> <div className={styles.tokenSample} style={{ backgroundColor: "pink" }} />
-        </div>
-        <div className={`${styles.card}`}>
-          <h1>Computer&rsquo;s token: </h1>
-          <div className={styles.tokenSample} style={{ backgroundColor: "red" }} />
-        </div>
+    <div className={`${styles.legendSection}`}>
+      <div className={`${styles.card}`}>
+        <h1>Your token: </h1> <div className={styles.tokenSample} style={{ backgroundColor: "pink" }} />
+      </div>
+      <div className={`${styles.card}`}>
+        <h1>Computer&rsquo;s token: </h1>
+        <div className={styles.tokenSample} style={{ backgroundColor: "red" }} />
       </div>
     </div>
   );
@@ -34,15 +32,15 @@ export default function Game() {
       {/* <TurnIndicator turn={turn}></TurnIndicator> */}
       <img alt="Connect 4 logo" className={`${styles.logo}`} src="src\assets\logo-removebg-preview.png" />
       <div>
+        <TokenIndicator />
         <div className={`${styles.section} ${styles.card}`}>
-          <TokenIndicator />
           <Board />
         </div>
         <div className={`${styles.section}`}>
           <div className={`${styles.buttonsDiv}`}>
             <CustomButton label="Restart Game" />
             <CustomButton label="End Game" to="/" />
-            <Instructions />
+            <Instructions label="" />
           </div>
         </div>
       </div>

@@ -10,7 +10,7 @@ function App() {
         <img alt="Connect 4 logo" src="src\assets\logo-removebg-preview.png" />
         <div className="card">
           <CustomButton label="Start Game" to="/game" />
-          <Instructions />
+          <Instructions label="Instructions and Rules" />
         </div>
       </div>
     </>

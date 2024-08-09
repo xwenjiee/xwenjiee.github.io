@@ -9,14 +9,14 @@ import * as React from "react";
 import CustomButton from "./Button/Button";
 import styles from "./Instructions.module.css";
 
-function Instructions() {
+function Instructions({ label }: { label: string }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
     <div>
-      <CustomButton label="Instructions and Rules" primary onClick={handleOpen} startIcon={<QuestionMarkIcon />} />
+      <CustomButton label={label} help onClick={handleOpen} startIcon={<QuestionMarkIcon />} />
       <Modal
         open={open}
         onClose={handleClose}
