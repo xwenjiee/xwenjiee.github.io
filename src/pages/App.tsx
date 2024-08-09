@@ -1,6 +1,6 @@
 import "./App.css";
-import CustomButton from "./components/Button/Button";
-import Instructions from "./components/Instructions";
+import CustomButton from "../components/Button/Button";
+import Instructions from "../components/Instructions";
 
 function App() {
   return (

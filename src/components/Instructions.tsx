@@ -1,4 +1,4 @@
-import "../App.css";
+import "../pages/App.css";
 import CloseIcon from "@mui/icons-material/Close";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import Box from "@mui/material/Box";
