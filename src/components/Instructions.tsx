@@ -42,7 +42,7 @@ function Instructions() {
             </Button>
           </div>
           <Typography sx={{ fontWeight: "bold" }} variant="h6" component="h2">
-            <u>Connect 4 Game Instructions and Rules</u>
+            Connect 4 Game Instructions and Rules
           </Typography>
           <Typography sx={{ padding: "5px" }}>
             <img className="instructions-gif" alt="gif of placing tokens" src="src\assets\placing-tokens.gif" />
