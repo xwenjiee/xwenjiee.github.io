@@ -1,4 +1,4 @@
-.customButton {
+.Button {
     background-color: rgb(202, 197, 241) !important;
     color: rgb(71, 71, 71) !important;
     font-weight: bold !important;
@@ -34,6 +34,7 @@
   background: hsl(345, 100%, 47%) !important;
   color: white !important;
   transform: translateY(-6px) !important;
+  text-transform: capitalize !important;
 }
 .primary {
   background: hsl(346, 65%, 70%) !important;

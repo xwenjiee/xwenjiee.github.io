@@ -25,6 +25,10 @@
 
   }
 
+.gridColumn:hover {
+    cursor: pointer;
+}
+
 .gridColumn {
     display: grid;
     grid-template-rows: repeat(6, auto); /* 6 rows */
@@ -47,10 +51,10 @@
 }
 
 .playerTurn:hover {
-    background-color: lightgreen;
+    background-color: rgb(165, 221, 169);
   }
   
-  .notPlayerTurn:hover {
+.notPlayerTurn:hover {
     background-color: red;
   }
 
