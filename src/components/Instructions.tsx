@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import CustomButton from "./Button/Button";
+import CustomButton from "./Button";
 import styles from "./Instructions.module.css";
 
 function Instructions({ label }: { label: string }) {
