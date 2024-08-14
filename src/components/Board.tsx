@@ -1,6 +1,6 @@
 import { Alert, Snackbar, SnackbarCloseReason } from "@mui/material";
 import clsx from "clsx";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "./Board.module.css";
 
 type BoardArray = Array<Array<string | null>>;
@@ -112,15 +112,11 @@ function checkWinner(col: number, row: number, token: string | null, board: Boar
 }
 
 function Board() {
-  const [board, setBoard] = useState<BoardArray>([
-    [null, null, null, null, null, null],
-    [null, null, null, null, null, null],
-    [null, null, null, null, null, null],
-    [null, null, null, null, null, null],
-    [null, null, null, null, null, null],
-    [null, null, null, null, null, null],
-    [null, null, null, null, null, null],
-  ]);
+  const [board, setBoard] = useState<BoardArray>(
+    Array(7)
+      .fill(null)
+      .map(() => Array(6).fill(null))
+  );
 
   // const [isPlayerTurn, setPlayerTurn] = useState(true);
   const isPlayerTurn = true;
@@ -128,7 +124,7 @@ function Board() {
   const [winnerFound, setWinnerFound] = useState(false);
   const [lastMove, setLastMove] = useState<{ column: number; row: number } | null>(null);
 
-  const [open, setOpenError] = React.useState(false);
+  const [open, setOpenError] = useState(false);
 
   const handleClose = (_event: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
     if (reason === "clickaway") {

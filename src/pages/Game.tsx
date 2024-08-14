@@ -1,8 +1,8 @@
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import Board from "../components/Board";
 import Instructions from "../components/Instructions";
-import Board from "./Board";
-import styles from "./Board.module.css";
+import styles from "./Game.module.css";
 
 function TokenIndicator() {
   return (
