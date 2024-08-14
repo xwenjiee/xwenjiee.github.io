@@ -1,3 +1,8 @@
+.root {
+  margin-top:50px;
+}
+
+
 .card {
   margin : 30px;
 }
@@ -11,4 +16,9 @@
 .token-indicator {
 float:left;
 
+}
+
+.logo {
+  max-width: 400px;
+  min-width: 200px;
 }

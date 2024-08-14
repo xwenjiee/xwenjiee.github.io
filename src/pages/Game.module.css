@@ -34,6 +34,7 @@
 
 .section {
     margin-bottom: 2em;
+    width: inherit;
 }
 
 
