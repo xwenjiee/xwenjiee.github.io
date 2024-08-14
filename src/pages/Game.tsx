@@ -1,6 +1,6 @@
-import CustomButton from "../components/Button/Button";
+import Board from "../components/Board";
+import CustomButton from "../components/Button";
 import Instructions from "../components/Instructions";
-import Board from "./Board";
 import styles from "./Game.module.css";
 
 function TokenIndicator() {
