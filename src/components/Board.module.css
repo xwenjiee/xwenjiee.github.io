@@ -1,0 +1,64 @@
+.card {
+    display: flex;
+}
+
+.cardContent {
+    flex: 1;
+    border: 1px solid black;
+    padding: 10px;
+    margin: 5px;
+}
+
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 columns */
+    gap: 10px; /* Gap between columns */
+    background-color: blue;
+    padding: 10px;
+    min-width: min-content;
+    
+
+  }
+
+.gridColumn {
+    display: grid;
+    grid-template-rows: repeat(6, auto); /* 6 rows */
+    gap: 10px; /* Gap between grid items */
+    
+}
+
+.tokenCursor {
+    /* background-color: blue; */
+    border: 1px solid blue;
+    padding: 20px;
+    text-align: center;
+    border-radius: 50%;
+    color: black;
+
+}
+
+.tokenCursor:hover {
+    background-color: pink;
+}
+
+.playerTurn:hover {
+    background-color: lightgreen;
+  }
+  
+  .notPlayerTurn:hover {
+    background-color: red;
+  }
+
+.gridItem {
+    background-color: #f0f0f0;
+    border: 1px solid #ffffff;
+    padding: 20px;
+    text-align: center;
+    border-radius: 50%;
+    color: black;
+    min-width: 10px;
+    min-height: 10px;
+    width: 10px;
+}
+
