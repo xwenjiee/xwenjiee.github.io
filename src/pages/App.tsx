@@ -8,8 +8,8 @@ function App() {
       <img className={styles.logo} alt="Connect 4 logo" src="src\assets\logo-removebg-preview.png" />
       <div className={styles.card}>
         <CustomButton label="Start Game" to="/game" />
-        <Instructions label="Instructions and Rules" />
       </div>
+      <Instructions label="Instructions and Rules" />
     </div>
   );
 }

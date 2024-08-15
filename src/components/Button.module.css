@@ -5,7 +5,6 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  margin: 0px 5px 15px 0px !important;
   outline-offset: 4px;
 }
 
@@ -15,7 +14,8 @@
 
 .front {
   border-radius: 12px !important;
-  font-size: medium !important;
+  font-size: small !important;
+  
   background: hsl(345, 100%, 47%) !important;
   color: white !important;
   transform: translateY(-6px) !important;
@@ -24,12 +24,20 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
   
 }
+
+.icon {
+  font-size: large !important;
+}
 .primary {
   background: hsl(346, 65%, 70%) !important;
   }
 
 .help {
   background: hsl(39, 100%, 65%) !important;
+  
+}
+.iconButton {
+  height: 100%;
 }
 
 .pushable:active .front {
@@ -46,4 +54,25 @@
 
 .help:hover {
   background: hsl(39, 85%, 46%) !important;
+}
+
+@media (min-width: 600px) {
+  .front {
+    font-size: medium !important;
+  }
+  .icon {
+    font-size: x-large !important;
+  }
+
+  
+}
+@media (min-width: 900px) {
+  .front {
+    font-size: large !important;
+  }
+  .icon {
+    font-size: x-large !important;
+  }
+
+  
 }

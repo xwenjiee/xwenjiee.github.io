@@ -242,44 +242,42 @@ function Board() {
           You cannot place tokens in a full column!
         </Alert>
       </Snackbar>
-      <div className={styles.cardContent}>
-        <div className={styles.grid}>
-          {board.map((column, columnIndex) => (
-            <div
-              id={`col-${columnIndex}`}
-              //   key={`column-${columnIndex}`}
-              className={clsx(styles.gridColumn, {
-                [styles.playerTurn]: isPlayerTurn,
-                [styles.notPlayerTurn]: !isPlayerTurn,
-              })}
-              onClick={() => {
+      <div className={styles.grid}>
+        {board.map((column, columnIndex) => (
+          <div
+            id={`col-${columnIndex}`}
+            //   key={`column-${columnIndex}`}
+            className={clsx(styles.gridColumn, {
+              [styles.playerTurn]: isPlayerTurn,
+              [styles.notPlayerTurn]: !isPlayerTurn,
+            })}
+            onClick={() => {
+              isPlayerTurn ? handlePlayerToken(columnIndex) : console.log("not your turn");
+            }}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
                 isPlayerTurn ? handlePlayerToken(columnIndex) : console.log("not your turn");
-              }}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  isPlayerTurn ? handlePlayerToken(columnIndex) : console.log("not your turn");
-                }
-              }}
-            >
-              {column
-                .slice()
-                .reverse()
-                .map((item, rowIndex) => (
-                  <div
-                    id={`col-${columnIndex}-row-${rowIndex}`}
-                    // key={`col-${columnIndex}-row-${rowIndex}`}
-                    className={clsx({
-                      [styles.gridItemEmpty]: getTokenType(item) === "#272727",
-                      [styles.gridItem]: getTokenType(item) !== "#272727",
-                    })}
-                    style={{ backgroundColor: getTokenType(item) }}
-                  />
-                ))}
-            </div>
-          ))}
-        </div>
+              }
+            }}
+          >
+            {column
+              .slice()
+              .reverse()
+              .map((item, rowIndex) => (
+                <div
+                  id={`col-${columnIndex}-row-${rowIndex}`}
+                  // key={`col-${columnIndex}-row-${rowIndex}`}
+                  className={clsx({
+                    [styles.gridItemEmpty]: getTokenType(item) === "#272727",
+                    [styles.gridItem]: getTokenType(item) !== "#272727",
+                  })}
+                  style={{ backgroundColor: getTokenType(item) }}
+                />
+              ))}
+          </div>
+        ))}
       </div>
     </>
   );

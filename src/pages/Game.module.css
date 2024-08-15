@@ -1,4 +1,9 @@
 
+.game {
+    
+    width: fit-content;
+    margin: 30px auto;
+}
 
 .cardContent {
     flex: 1;
@@ -7,62 +12,85 @@
     margin: 5px;
 }
 
-.tokenSample {
-    background-color: #f0f0f0;
-    border: 1px solid #ffffff;
-    padding: 20px;
-    text-align: center;
-    border-radius: 50%;
-    color: black;
-    min-width: 10px;
-    min-height: 10px;
-    width: 10px;
-    height: 10px
-
-}
 .card {
     display: flex;
     align-items: center;
+    margin: auto;
 }
-
 
 .tokenSample {
     background-color: #f0f0f0;
-    border: 1px solid #ffffff;
-    margin: 0 0 0 20px;
-    text-align: center;
+    margin: 0 0 0 10px;
     border-radius: 50%;
     color: transparent;
-    min-width: 30px;
-    min-height: 30px;
-    width: 30px;
-    height: 30px
+    width: 25px;
+    height: 25px;
 
 }
 
 .logo {
-    height: 15%;
-    width: auto
+    width: 80px;
 }
 
 .legendSection {
-    padding: 5px;
-    font-size: small;
-    text-align: left;
     display: flex;
-    justify-content: space-evenly;
-   
+    font-size: 7px;
 }
 
 .section {
-    margin-bottom: 2em;
-    width: inherit;
+    margin-bottom: 1em;
 }
 
-
 .buttonsDiv {
-    width:max-content;
-    margin: auto;
+    width:fit-content;
+    margin:auto;
+    gap:5px;
     display:flex;
 }
 
+@media (min-width: 600px) {
+
+    .logo {
+        width: 120px;
+    }
+    .section {
+        margin-bottom: 1.25em;
+    }
+  
+
+    .legendSection {
+        font-size: x-small;
+    }
+    .tokenSample {
+        width: 35px;
+        height: 35px;
+    
+    }
+    .buttonsDiv {
+
+        gap:10px;
+    }
+    
+  }
+  @media (min-width: 900px) {
+
+    .game {
+        margin-top: 0px;
+    }
+    .logo {
+        width: 150px;
+    }
+    .section {
+        margin-bottom: 1.5em;
+    }
+    .legendSection {
+        font-size: small;
+    }
+  
+    .tokenSample {
+        width: 40px;
+        height: 40px;
+    
+    }
+    
+  }

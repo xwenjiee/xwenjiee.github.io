@@ -8,15 +8,16 @@
 }
 
 #root {
-  /* max-width: 1280px; */
+  max-width: 800px;
   margin: 0 auto;
   text-align: center;
+  /* display: flex; */
 }
 
 body {
   /* display: flex; */
-  min-width: 320px;
-  min-height: 100vh;
+  /* min-width: 320px; */
+  /* min-height: 800px; */
 
 }
 

@@ -2,6 +2,7 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import clsx from "clsx";
 import PropTypes from "prop-types";
+import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Button.module.css";
 
@@ -11,7 +12,7 @@ type CustomButtonProps = {
   help?: boolean;
   onClick?: () => void;
   to?: string;
-  startIcon?: React.ReactNode;
+  startIcon?: React.ReactElement;
 };
 
 const CustomButton: React.FC<CustomButtonProps> = ({
@@ -31,16 +32,16 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         onClick={onClick}
         {...(to ? { to } : {})}
         component={to ? Link : "button"}
-        startIcon={startIcon}
+        startIcon={startIcon ? React.cloneElement(startIcon, { className: styles.icon }) : null}
       >
         {label}
       </Button>
     ) : (
       <IconButton
-        className={clsx(styles.front, { [styles.primary]: primary }, { [styles.help]: help })}
+        className={clsx(styles.front, styles.iconButton, { [styles.primary]: primary }, { [styles.help]: help })}
         onClick={onClick}
       >
-        {startIcon}
+        {startIcon ? React.cloneElement(startIcon, { className: styles.icon }) : null}
       </IconButton>
     )}
   </button>
@@ -52,7 +53,7 @@ CustomButton.propTypes = {
   help: PropTypes.bool,
   onClick: PropTypes.func,
   to: PropTypes.string,
-  startIcon: PropTypes.node,
+  startIcon: PropTypes.element,
 };
 
 export default CustomButton;
