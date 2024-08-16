@@ -24,26 +24,55 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) ;
   
 }
+
+.icon {
+  font-size: large !important;
+}
 .primary {
   background: hsl(346, 65%, 70%) ;
   }
 
 .help {
-  background: hsl(39, 100%, 65%) ;
+  background: hsl(39, 100%, 65%) !important;
+}
+
+.iconButton {
+  height: 100%;
 }
 
 .pushable:active .front {
-  transform: translateY(-2px) ;
+  transform: translateY(-2px) !important;
 }
 
 
 .front:hover {
-  background: hsl(345, 100%, 36%) ;
-  transform: translateY(-4px);
-  transition: transform 200ms ;
+  background: hsl(345, 100%, 36%) !important;
+  transform: translateY(-4px) !important;
+  transition: transform 200ms !important;
 
 }
 
 .help:hover {
-  background: hsl(39, 85%, 46%) ;
+  background: hsl(39, 85%, 46%) !important;
+}
+
+@media (min-width: 600px) {
+  .front {
+    font-size: medium !important;
+  }
+  .icon {
+    font-size: x-large !important;
+  }
+
+  
+}
+@media (min-width: 900px) {
+  .front {
+    font-size: large !important;
+  }
+  .icon {
+    font-size: x-large !important;
+  }
+
+  
 }

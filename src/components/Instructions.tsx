@@ -14,7 +14,7 @@ function Instructions({ label }: { label: string }) {
   const handleClose = () => setOpen(false);
 
   return (
-    <div>
+    <>
       <CustomButton label={label} help onClick={handleOpen} startIcon={<QuestionMarkIcon />} />
       <Modal
         open={open}
@@ -98,7 +98,7 @@ function Instructions({ label }: { label: string }) {
           </div>
         </Box>
       </Modal>
-    </div>
+    </>
   );
 }
 
