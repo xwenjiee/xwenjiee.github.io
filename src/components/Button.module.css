@@ -26,14 +26,14 @@
 }
 
 .icon {
-  font-size: large !important;
+  font-size: large ;
 }
 .primary {
   background: hsl(346, 65%, 70%) ;
   }
 
 .help {
-  background: hsl(39, 100%, 65%) !important;
+  background: hsl(39, 100%, 65%);
 }
 
 .iconButton {
@@ -41,37 +41,37 @@
 }
 
 .pushable:active .front {
-  transform: translateY(-2px) !important;
+  transform: translateY(-2px) ;
 }
 
 
 .front:hover {
-  background: hsl(345, 100%, 36%) !important;
-  transform: translateY(-4px) !important;
-  transition: transform 200ms !important;
+  background: hsl(345, 100%, 36%) ;
+  transform: translateY(-4px) ;
+  transition: transform 200ms ;
 
 }
 
 .help:hover {
-  background: hsl(39, 85%, 46%) !important;
+  background: hsl(39, 85%, 46%) ;
 }
 
 @media (min-width: 600px) {
   .front {
-    font-size: medium !important;
+    font-size: medium ;
   }
   .icon {
-    font-size: x-large !important;
+    font-size: x-large ;
   }
 
   
 }
 @media (min-width: 900px) {
   .front {
-    font-size: large !important;
+    font-size: large ;
   }
   .icon {
-    font-size: x-large !important;
+    font-size: x-large ;
   }
 
   
