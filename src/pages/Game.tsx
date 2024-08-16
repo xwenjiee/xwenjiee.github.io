@@ -7,11 +7,11 @@ function TokenIndicator() {
   return (
     <div className={`${styles.legendSection}`}>
       <div className={`${styles.card}`}>
-        <h1>Your token: </h1> <div className={styles.tokenSample} style={{ backgroundColor: "pink" }} />
+        <h1>Your token: </h1> <div className={styles.tokenSample} style={{ backgroundColor: "#ff3838" }} />
       </div>
       <div className={`${styles.card}`}>
         <h1>Computer&rsquo;s token: </h1>
-        <div className={styles.tokenSample} style={{ backgroundColor: "red" }} />
+        <div className={styles.tokenSample} style={{ backgroundColor: "#ffd138" }} />
       </div>
     </div>
   );
