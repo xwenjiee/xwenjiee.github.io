@@ -25,25 +25,25 @@
   
 }
 .primary {
-  background: hsl(346, 65%, 70%) !important;
+  background: hsl(346, 65%, 70%) ;
   }
 
 .help {
-  background: hsl(39, 100%, 65%) !important;
+  background: hsl(39, 100%, 65%) ;
 }
 
 .pushable:active .front {
-  transform: translateY(-2px) !important;
+  transform: translateY(-2px) ;
 }
 
 
 .front:hover {
-  background: hsl(345, 100%, 36%) !important;
-  transform: translateY(-4px)!important;
-  transition: transform 200ms !important;
+  background: hsl(345, 100%, 36%) ;
+  transform: translateY(-4px);
+  transition: transform 200ms ;
 
 }
 
 .help:hover {
-  background: hsl(39, 85%, 46%) !important;
+  background: hsl(39, 85%, 46%) ;
 }
