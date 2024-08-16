@@ -23,7 +23,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   to,
   startIcon,
 }) => (
-  <button type="button" className={clsx(styles.pushable, { [styles.helpPushable]: help })}>
+  <div className={clsx(styles.pushable, { [styles.helpPushable]: help })}>
     {label ? (
       <Button
         variant="contained"
@@ -44,7 +44,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         {startIcon ? React.cloneElement(startIcon, { className: styles.icon }) : null}
       </IconButton>
     )}
-  </button>
+  </div>
 );
 
 CustomButton.propTypes = {

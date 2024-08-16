@@ -222,10 +222,10 @@ function Board() {
 
   function getTokenType(item: string | null) {
     if (item === "<3") {
-      return "pink";
+      return "#ff3838";
     }
     if (item === "lol") {
-      return "red";
+      return "#ffd138";
     }
     return "#272727";
   }
