@@ -5,7 +5,7 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  margin: 0px 5px 15px 0px !important;
+  margin: 0px 5px 15px 0px ;
   outline-offset: 4px;
 }
 
@@ -14,14 +14,14 @@
 }
 
 .front {
-  border-radius: 12px !important;
-  font-size: medium !important;
-  background: hsl(345, 100%, 47%) !important;
-  color: white !important;
-  transform: translateY(-6px) !important;
-  text-transform: capitalize !important;
-  font-family: "Silkscreen", sans-serif !important;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
+  border-radius: 12px ;
+  font-size: medium ;
+  background: hsl(345, 100%, 47%) ;
+  color: white ;
+  transform: translateY(-6px) ;
+  text-transform: capitalize ;
+  font-family: "Silkscreen", sans-serif ;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) ;
   
 }
 .primary {
