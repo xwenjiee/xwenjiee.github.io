@@ -15,7 +15,7 @@
 
 .front {
   border-radius: 12px ;
-  font-size: medium ;
+  font-size: small ;
   background: hsl(345, 100%, 47%) ;
   color: white ;
   transform: translateY(-6px) ;
