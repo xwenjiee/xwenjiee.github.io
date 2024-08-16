@@ -1,5 +1,6 @@
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
+import { StyledEngineProvider } from "@mui/material/styles";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import React from "react";
@@ -23,28 +24,30 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   to,
   startIcon,
 }) => (
-  <div className={clsx(styles.pushable, { [styles.helpPushable]: help })}>
-    {label ? (
-      <Button
-        variant="contained"
-        disableElevation
-        className={clsx(styles.front, { [styles.primary]: primary }, { [styles.help]: help })}
-        onClick={onClick}
-        {...(to ? { to } : {})}
-        component={to ? Link : "button"}
-        startIcon={startIcon ? React.cloneElement(startIcon, { className: styles.icon }) : null}
-      >
-        {label}
-      </Button>
-    ) : (
-      <IconButton
-        className={clsx(styles.front, styles.iconButton, { [styles.primary]: primary }, { [styles.help]: help })}
-        onClick={onClick}
-      >
-        {startIcon ? React.cloneElement(startIcon, { className: styles.icon }) : null}
-      </IconButton>
-    )}
-  </div>
+  <StyledEngineProvider injectFirst>
+    <div className={clsx(styles.pushable, { [styles.helpPushable]: help })}>
+      {label ? (
+        <Button
+          variant="contained"
+          disableElevation
+          className={clsx(styles.front, { [styles.primary]: primary }, { [styles.help]: help })}
+          onClick={onClick}
+          {...(to ? { to } : {})}
+          component={to ? Link : "button"}
+          startIcon={startIcon ? React.cloneElement(startIcon, { className: styles.icon }) : null}
+        >
+          {label}
+        </Button>
+      ) : (
+        <IconButton
+          className={clsx(styles.front, styles.iconButton, { [styles.primary]: primary }, { [styles.help]: help })}
+          onClick={onClick}
+        >
+          {startIcon ? React.cloneElement(startIcon, { className: styles.icon }) : null}
+        </IconButton>
+      )}
+    </div>
+  </StyledEngineProvider>
 );
 
 CustomButton.propTypes = {
