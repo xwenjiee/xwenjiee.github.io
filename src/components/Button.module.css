@@ -1,11 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto+Slab:wght@100..900&family=Silkscreen:wght@400;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 .pushable {
   background: hsl(340, 100%, 25%);
   border-radius: 12px;
   border: none;
   padding: 0;
   cursor: pointer;
+  width: fit-content;
   outline-offset: 4px;
+  margin: auto;
+
 }
 
 .helpPushable {
@@ -15,7 +17,6 @@
 .front {
   border-radius: 12px !important;
   font-size: small !important;
-  
   background: hsl(345, 100%, 47%) !important;
   color: white !important;
   transform: translateY(-6px) !important;

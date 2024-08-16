@@ -40,16 +40,11 @@
 
 .closeIcon {
   float: right; 
-  color: white !important;
-  background-color: red !important;
   cursor: pointer;
-  border-radius:50% !important;
   position: absolute !important;
-  right: -20px ;
-  top: -30px;
-  height: 25px;
-  width:25px;
-  
+  right: -30px ;
+  top: -35px;
+  color: rgb(240, 0, 60) !important;
 }
 
   .instructionsGif {
