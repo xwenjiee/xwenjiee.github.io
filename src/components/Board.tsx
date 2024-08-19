@@ -202,6 +202,7 @@ function Board() {
               // column = idx;
               // row = idx2;
               // checkWinner(column, row)
+              setPlayerTurn(false); // Optional: Update player turn status
               return "<3"; // Player token
             }
             return item;
@@ -218,7 +219,7 @@ function Board() {
     });
 
     // After board state updates and lastMove is set, `checkWinner` will be called
-    setPlayerTurn(false); // Optional: Update player turn status
+
     computerMove();
   }
 
