@@ -1,8 +1,7 @@
 import "../pages/App.module.css";
-import CloseIcon from "@mui/icons-material/Close";
+import CancelIcon from "@mui/icons-material/Cancel";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
 import Modal from "@mui/material/Modal";
 import * as React from "react";
 import CustomButton from "./Button";
@@ -23,9 +22,7 @@ function Instructions({ label }: { label: string }) {
         aria-describedby="modal-modal-description"
       >
         <Box className={styles.instructionsModal}>
-          <IconButton className={styles.closeIcon} onClick={handleClose}>
-            <CloseIcon />
-          </IconButton>
+          <CancelIcon className={styles.closeIcon} sx={{ fontSize: 35 }} onClick={handleClose} />
           <div className={styles.myScroll}>
             <div className={styles.padded}>
               <h1 className={styles.instructionsTitle}>Connect 4 Game Instructions and Rules</h1>
