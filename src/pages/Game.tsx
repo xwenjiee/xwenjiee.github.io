@@ -1,18 +1,17 @@
-import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
 import Board from "../components/Board";
+import CustomButton from "../components/Button";
 import Instructions from "../components/Instructions";
 import styles from "./Game.module.css";
 
 function TokenIndicator() {
   return (
-    <div className={styles.cardContent}>
+    <div className={styles.legendSection}>
       <div className={styles.card}>
-        <h1>Your token: </h1> <div className={styles.tokenSample} style={{ backgroundColor: "pink" }} />
+        <h1>Your token: </h1> <div className={styles.tokenSample} style={{ backgroundColor: "#ff3838" }} />
       </div>
       <div className={styles.card}>
         <h1>Computer&rsquo;s token: </h1>
-        <div className={styles.tokenSample} style={{ backgroundColor: "red" }} />
+        <div className={styles.tokenSample} style={{ backgroundColor: "#ffd138" }} />
       </div>
     </div>
   );
@@ -29,22 +28,20 @@ function TokenIndicator() {
 export default function Game() {
   // const turn = "Wen Jie";
   return (
-    <>
-      <h1>Game has commenced...</h1>
-
-      {/* <Snackbar>
-        <Alert severity="error">This is an error Alert.</Alert>
-      </Snackbar> */}
+    <div className={styles.game}>
       {/* <TurnIndicator turn={turn}></TurnIndicator> */}
-      <div className={styles.card}>
-        <TokenIndicator />
+      <img alt="Connect 4 logo" className={styles.logo} src="src\assets\logo-removebg-preview.png" />
+      <TokenIndicator />
+      <div className={`${styles.section} ${styles.card}`}>
         <Board />
       </div>
-      <Button>Restart Game</Button>
-      <Link to="/">
-        <Button>End Game</Button>
-      </Link>
-      <Instructions />
-    </>
+      <div className={styles.section}>
+        <div className={styles.buttonsDiv}>
+          <CustomButton label="Restart Game" />
+          <CustomButton label="End Game" to="/" />
+          <Instructions label="" />
+        </div>
+      </div>
+    </div>
   );
 }

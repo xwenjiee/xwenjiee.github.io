@@ -1,30 +1,24 @@
-.card {
-    display: flex;
-}
-
-.cardContent {
-    flex: 1;
-    border: 1px solid black;
-    padding: 10px;
-    margin: 5px;
-}
-
-
 .grid {
+    
     display: grid;
     grid-template-columns: repeat(7, 1fr); /* 7 columns */
-    gap: 10px; /* Gap between columns */
-    background-color: blue;
+    background-color: rgb(41, 95, 196);
     padding: 10px;
-    min-width: min-content;
-    
-
+    gap: 5px;
+    width: fit-content;
+    border-radius: 2%;
+    box-shadow: 10px 10px 5px black;
+    margin: auto;
   }
+
+.gridColumn:hover {
+    cursor: pointer;
+}
 
 .gridColumn {
     display: grid;
     grid-template-rows: repeat(6, auto); /* 6 rows */
-    gap: 10px; /* Gap between grid items */
+    gap: 5px; /* Gap between grid items */
     
 }
 
@@ -43,22 +37,72 @@
 }
 
 .playerTurn:hover {
-    background-color: lightgreen;
+    background-color: rgb(165, 221, 169);
   }
   
-  .notPlayerTurn:hover {
+.notPlayerTurn:hover {
     background-color: red;
   }
 
-.gridItem {
+  .gridItemEmpty {
     background-color: #f0f0f0;
-    border: 1px solid #ffffff;
-    padding: 20px;
+    border: 2px solid rgb(23, 55, 114);
     text-align: center;
     border-radius: 50%;
-    color: black;
-    min-width: 10px;
-    min-height: 10px;
-    width: 10px;
+    color: transparent;
+    height: 35px;
+    width: 35px;
+    box-shadow: 5px 5px 2px black inset;
 }
+.gridItem {
+    background-color: #f0f0f0;
+    border: 2px solid rgb(23, 55, 114);
+    text-align: center;
+    border-radius: 50%;
+    color: transparent;
+    min-width: 10px;
+    min-height: 10px; 
+    height: 35px;
+    width: 35px;
+} 
+
+@media (min-width: 600px) {
+
+    .grid {
+        padding: 15px;
+        gap: 7px;
+      }
+    .gridColumn {
+        gap: 7px;
+        
+    }
+    .gridItemEmpty {
+        height: 45px;
+        width: 45px;
+    }
+    .gridItem {
+        height: 45px;
+        width: 45px;
+    } 
+  }
+
+  @media (min-width: 900px) {
+
+    .grid {
+        padding: 20px;
+        gap: 10px;
+      }
+    .gridColumn {
+        gap: 10px;
+        
+    }
+    .gridItemEmpty {
+        height: 60px;
+        width: 60px;
+    }
+    .gridItem {
+        height: 60px;
+        width: 60px;
+    } 
+  }
 

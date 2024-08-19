@@ -222,56 +222,62 @@ function Board() {
 
   function getTokenType(item: string | null) {
     if (item === "<3") {
-      return "pink";
+      return "#ff3838";
     }
     if (item === "lol") {
-      return "red";
+      return "#ffd138";
     }
-    return "black";
+    return "#272727";
   }
 
   return (
     <>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+      <Snackbar
+        open={open}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        autoHideDuration={2000}
+        onClose={handleClose}
+      >
         <Alert onClose={handleClose} severity="error" variant="filled" sx={{ width: "100%" }}>
           You cannot place tokens in a full column!
         </Alert>
       </Snackbar>
-      <div className={styles.cardContent}>
-        <div className={styles.grid}>
-          {board.map((column, columnIndex) => (
-            <div
-              id={`col-${columnIndex}`}
-              //   key={`column-${columnIndex}`}
-              className={clsx(styles.gridColumn, {
-                [styles.playerTurn]: isPlayerTurn,
-                [styles.notPlayerTurn]: !isPlayerTurn,
-              })}
-              onClick={() => {
+      <div className={styles.grid}>
+        {board.map((column, columnIndex) => (
+          <div
+            id={`col-${columnIndex}`}
+            //   key={`column-${columnIndex}`}
+            className={clsx(styles.gridColumn, {
+              [styles.playerTurn]: isPlayerTurn,
+              [styles.notPlayerTurn]: !isPlayerTurn,
+            })}
+            onClick={() => {
+              isPlayerTurn ? handlePlayerToken(columnIndex) : console.log("not your turn");
+            }}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
                 isPlayerTurn ? handlePlayerToken(columnIndex) : console.log("not your turn");
-              }}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  isPlayerTurn ? handlePlayerToken(columnIndex) : console.log("not your turn");
-                }
-              }}
-            >
-              {column
-                .slice()
-                .reverse()
-                .map((item, rowIndex) => (
-                  <div
-                    id={`col-${columnIndex}-row-${rowIndex}`}
-                    // key={`col-${columnIndex}-row-${rowIndex}`}
-                    className={styles.gridItem}
-                    style={{ backgroundColor: getTokenType(item) }}
-                  />
-                ))}
-            </div>
-          ))}
-        </div>
+              }
+            }}
+          >
+            {column
+              .slice()
+              .reverse()
+              .map((item, rowIndex) => (
+                <div
+                  id={`col-${columnIndex}-row-${rowIndex}`}
+                  // key={`col-${columnIndex}-row-${rowIndex}`}
+                  className={clsx({
+                    [styles.gridItemEmpty]: getTokenType(item) === "#272727",
+                    [styles.gridItem]: getTokenType(item) !== "#272727",
+                  })}
+                  style={{ backgroundColor: getTokenType(item) }}
+                />
+              ))}
+          </div>
+        ))}
       </div>
     </>
   );
