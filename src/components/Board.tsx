@@ -253,6 +253,7 @@ function Board() {
             className={clsx(styles.gridColumn, {
               [styles.playerTurn]: isPlayerTurn,
               [styles.notPlayerTurn]: !isPlayerTurn,
+              [styles.columnFull]: !board[columnIndex].includes(null),
             })}
             onClick={() => {
               isPlayerTurn ? handlePlayerToken(columnIndex) : console.log("not your turn");
