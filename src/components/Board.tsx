@@ -1,115 +1,116 @@
 import { Alert, Snackbar, SnackbarCloseReason } from "@mui/material";
 import clsx from "clsx";
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
+import { useState } from "react";
 import styles from "./Board.module.css";
 
 type BoardArray = Array<Array<string | null>>;
 
-function checkLinesAndDiagonals(
-  col: number,
-  row: number,
-  colIdxLimit: number,
-  rowIdxLimit: number,
-  colStep: number,
-  rowStep: number,
-  token: string | null,
-  board: BoardArray
-) {
-  let consecutive = 0;
+// function checkLinesAndDiagonals(
+//   col: number,
+//   row: number,
+//   colIdxLimit: number,
+//   rowIdxLimit: number,
+//   colStep: number,
+//   rowStep: number,
+//   token: string | null,
+//   board: BoardArray
+// ) {
+//   let consecutive = 0;
 
-  let thisCol = col;
-  let thisRow = row;
-  while (true) {
-    thisCol += colStep;
-    thisRow += rowStep;
+//   let thisCol = col;
+//   let thisRow = row;
+//   while (true) {
+//     thisCol += colStep;
+//     thisRow += rowStep;
 
-    // Exit loop if the position goes out of bounds
-    if (
-      thisCol < 0 ||
-      thisCol > colIdxLimit ||
-      thisRow < 0 ||
-      thisRow > rowIdxLimit ||
-      board[thisCol][thisRow] !== token
-    ) {
-      break;
-    } else if (board[thisCol][thisRow] === token) {
-      consecutive += 1;
-      console.log(thisCol, thisRow);
-    }
-  }
-  console.log(consecutive);
-  return consecutive;
-}
+//     // Exit loop if the position goes out of bounds
+//     if (
+//       thisCol < 0 ||
+//       thisCol > colIdxLimit ||
+//       thisRow < 0 ||
+//       thisRow > rowIdxLimit ||
+//       board[thisCol][thisRow] !== token
+//     ) {
+//       break;
+//     } else if (board[thisCol][thisRow] === token) {
+//       consecutive += 1;
+//       console.log(thisCol, thisRow);
+//     }
+//   }
+//   console.log(consecutive);
+//   return consecutive;
+// }
 
-function checkWinner(col: number, row: number, token: string | null, board: BoardArray) {
-  // if (!board || board[col][row] === null) return;
-  let winner = false;
+// function checkWinner(col: number, row: number, token: string | null, board: BoardArray) {
+//   // if (!board || board[col][row] === null) return;
+//   let winner = false;
 
-  console.log(token);
+//   console.log(token);
 
-  const colIdxLimit = 6;
-  const rowIdxLimit = 5;
+//   const colIdxLimit = 6;
+//   const rowIdxLimit = 5;
 
-  // check straight same col
-  console.log("printing line in same col");
-  const consecutive = 1;
+//   // check straight same col
+//   console.log("printing line in same col");
+//   const consecutive = 1;
 
-  const totalConsecSameCol =
-    consecutive +
-    checkLinesAndDiagonals(col, row, colIdxLimit, rowIdxLimit, 0, 1, token, board) +
-    checkLinesAndDiagonals(col, row, colIdxLimit, rowIdxLimit, 0, -1, token, board);
+//   const totalConsecSameCol =
+//     consecutive +
+//     checkLinesAndDiagonals(col, row, colIdxLimit, rowIdxLimit, 0, 1, token, board) +
+//     checkLinesAndDiagonals(col, row, colIdxLimit, rowIdxLimit, 0, -1, token, board);
 
-  if (totalConsecSameCol === 4) {
-    console.log("winner found!!!!!");
-    winner = true;
-  }
+//   if (totalConsecSameCol === 4) {
+//     console.log("winner found!!!!!");
+//     winner = true;
+//   }
 
-  // check straight same row
-  console.log("printing line in same row");
+//   // check straight same row
+//   console.log("printing line in same row");
 
-  const totalConsecSameRow =
-    consecutive +
-    checkLinesAndDiagonals(col, row, colIdxLimit, rowIdxLimit, 1, 0, token, board) +
-    checkLinesAndDiagonals(col, row, colIdxLimit, rowIdxLimit, -1, 0, token, board);
+//   const totalConsecSameRow =
+//     consecutive +
+//     checkLinesAndDiagonals(col, row, colIdxLimit, rowIdxLimit, 1, 0, token, board) +
+//     checkLinesAndDiagonals(col, row, colIdxLimit, rowIdxLimit, -1, 0, token, board);
 
-  if (totalConsecSameRow === 4) {
-    console.log("winner found!!!!!");
-    winner = true;
-  }
+//   if (totalConsecSameRow === 4) {
+//     console.log("winner found!!!!!");
+//     winner = true;
+//   }
 
-  // check diagonal left up and right down
-  console.log("printing diagonals left up and right down");
+//   // check diagonal left up and right down
+//   console.log("printing diagonals left up and right down");
 
-  const totalConsecLeftUpRightDown =
-    consecutive +
-    checkLinesAndDiagonals(col, row, colIdxLimit, rowIdxLimit, -1, 1, token, board) +
-    checkLinesAndDiagonals(col, row, colIdxLimit, rowIdxLimit, 1, -1, token, board);
+//   const totalConsecLeftUpRightDown =
+//     consecutive +
+//     checkLinesAndDiagonals(col, row, colIdxLimit, rowIdxLimit, -1, 1, token, board) +
+//     checkLinesAndDiagonals(col, row, colIdxLimit, rowIdxLimit, 1, -1, token, board);
 
-  if (totalConsecLeftUpRightDown === 4) {
-    console.log("winner found!!!!!");
-    winner = true;
-  }
+//   if (totalConsecLeftUpRightDown === 4) {
+//     console.log("winner found!!!!!");
+//     winner = true;
+//   }
 
-  // check diagonal right up and left down
-  console.log("printing diagonals right up and left down");
+//   // check diagonal right up and left down
+//   console.log("printing diagonals right up and left down");
 
-  const totalConsecRightUpLeftDown =
-    consecutive +
-    checkLinesAndDiagonals(col, row, colIdxLimit, rowIdxLimit, 1, 1, token, board) +
-    checkLinesAndDiagonals(col, row, colIdxLimit, rowIdxLimit, -1, -1, token, board);
+//   const totalConsecRightUpLeftDown =
+//     consecutive +
+//     checkLinesAndDiagonals(col, row, colIdxLimit, rowIdxLimit, 1, 1, token, board) +
+//     checkLinesAndDiagonals(col, row, colIdxLimit, rowIdxLimit, -1, -1, token, board);
 
-  if (totalConsecRightUpLeftDown === 4) {
-    console.log("winner found!!!!!");
-    winner = true;
-  }
+//   if (totalConsecRightUpLeftDown === 4) {
+//     console.log("winner found!!!!!");
+//     winner = true;
+//   }
 
-  console.log("done");
+//   console.log("done");
 
-  // exclude negatives
-  console.log(winner);
+//   // exclude negatives
+//   console.log(winner);
 
-  return winner;
-}
+//   return winner;
+// }
 
 function Board() {
   const [board, setBoard] = useState<BoardArray>(
@@ -118,11 +119,11 @@ function Board() {
       .map(() => Array(6).fill(null))
   );
 
-  // const [isPlayerTurn, setPlayerTurn] = useState(true);
-  const isPlayerTurn = true;
+  const [isPlayerTurn, setPlayerTurn] = useState(true);
+  // const isPlayerTurn = true;
 
-  const [winnerFound, setWinnerFound] = useState(false);
-  const [lastMove, setLastMove] = useState<{ column: number; row: number } | null>(null);
+  // const [winnerFound, setWinnerFound] = useState(false);
+  // const [lastMove, setLastMove] = useState<{ column: number; row: number } | null>(null);
 
   const [open, setOpenError] = useState(false);
 
@@ -133,38 +134,75 @@ function Board() {
     setOpenError(false);
   };
 
-  useEffect(() => {
-    if (lastMove) {
-      setWinnerFound(checkWinner(lastMove.column, lastMove.row, board[lastMove.column][lastMove.row], board));
-    }
-  }, [board, lastMove]); // Dependency array includes `board` and `lastMove`
+  // useEffect(() => {
+  //   if (lastMove) {
+  //     setWinnerFound(checkWinner(lastMove.column, lastMove.row, board[lastMove.column][lastMove.row], board));
+  //   }
+  // }, [board, lastMove]); // Dependency array includes `board` and `lastMove`
 
-  useEffect(() => {
-    if (!isPlayerTurn && winnerFound === false) {
-      // computerMove();
-    }
-  }, [isPlayerTurn, winnerFound]);
+  // useEffect(() => {
+  //   if (!isPlayerTurn && winnerFound === false) {
+  //     // computerMove();
+  //   }
+  // }, [isPlayerTurn, winnerFound]);
 
   // check which move will result in a win/which move to block for the player
   // function checkWinningMove() {
 
   // }
 
+  function computerMove() {
+    // let column = 0;
+    // let row = 0;
+
+    // if (winnerFound === false) {
+    setTimeout(() => {
+      setBoard((prevBoard) => {
+        const newBoard = prevBoard.map((col, idx) => {
+          if (idx === 1 && prevBoard[1].includes(null)) {
+            let nullFound = false;
+            return col.map((item) => {
+              // return col.map((item, idx2) => {
+              if (item === null && !nullFound) {
+                nullFound = true;
+                // column = idx;
+                // row = idx2;
+                setPlayerTurn(true);
+                return "lol"; // Computer token
+              }
+              return item;
+            });
+          }
+          return col;
+        });
+        // setLastMove({ column, row });
+
+        return newBoard;
+      });
+
+      // Optional: Update player turn status
+    }, 500);
+
+    // }
+  }
+
   function handlePlayerToken(columnIndex: number) {
-    let column = 0;
-    let row = 0;
+    // let column = 0;
+    // let row = 0;
 
     setBoard((prevBoard) => {
       const newBoard = prevBoard.map((col, idx) => {
         if (idx === columnIndex && col.includes(null)) {
           setOpenError(false);
           let nullFound = false;
-          return col.map((item, idx2) => {
+          return col.map((item) => {
+            // return col.map((item, idx2) => {
             if (item === null && !nullFound) {
               nullFound = true;
-              column = idx;
-              row = idx2;
+              // column = idx;
+              // row = idx2;
               // checkWinner(column, row)
+              setPlayerTurn(false); // Optional: Update player turn status
               return "<3"; // Player token
             }
             return item;
@@ -176,49 +214,14 @@ function Board() {
         return col;
       });
 
-      setLastMove({ column, row }); // Track the last move
+      // setLastMove({ column, row }); // Track the last move
       return newBoard;
     });
 
     // After board state updates and lastMove is set, `checkWinner` will be called
-    // setPlayerTurn(false); // Optional: Update player turn status
-    // computerMove();
+
+    computerMove();
   }
-
-  // function computerMove() {
-  //   let column = 0;
-  //   let row = 0;
-
-  //   if (winnerFound === false) {
-  //     setTimeout(() => {
-  //       setBoard((prevBoard) => {
-  //         const newBoard = prevBoard.map((col, idx) => {
-  //           if (idx === 1 && prevBoard[1].includes(null)) {
-  //             let nullFound = false;
-  //             return col.map((item, idx2) => {
-  //               if (item === null && !nullFound) {
-  //                 nullFound = true;
-  //                 column = idx;
-  //                 row = idx2;
-  //                 setPlayerTurn(true);
-  //                 return "lol"; // Computer token
-  //               }
-  //               return item;
-  //             });
-  //           }
-  //           return col;
-  //         });
-  //         setLastMove({ column, row });
-
-  //         return newBoard;
-  //       });
-
-  //        // Optional: Update player turn status
-  //     }, 500);
-
-  //   }
-
-  // }
 
   function getTokenType(item: string | null) {
     if (item === "<3") {
@@ -250,6 +253,7 @@ function Board() {
             className={clsx(styles.gridColumn, {
               [styles.playerTurn]: isPlayerTurn,
               [styles.notPlayerTurn]: !isPlayerTurn,
+              [styles.columnFull]: !board[columnIndex].includes(null),
             })}
             onClick={() => {
               isPlayerTurn ? handlePlayerToken(columnIndex) : console.log("not your turn");
