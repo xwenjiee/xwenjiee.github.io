@@ -130,7 +130,16 @@ function Board() {
 
   useEffect(() => {
     // const delay = (ms : number) => new Promise((resolve) => setTimeout(resolve, ms));
-    const delay = (ms: number) => setTimeout(() => {}, ms);
+    // const delay = (ms: number) => setTimeout(() => {}, ms);
+    // const delay = async (ms: number) => {
+    //   return new Promise((resolve) => setTimeout(resolve, ms));
+    // };
+
+    const delay = (ms: number): Promise<void> => new Promise<void>((resolve) => {
+        setTimeout(() => {
+          resolve(); // Call resolve without returning a value
+        }, ms);
+      });
     const computerMove = async () => {
       const tempBoard = board.map((row) => [...row]);
       const colIdxLimit = 6; // Adjusted based on the board size (0-6 for 7 columns)
@@ -221,7 +230,6 @@ function Board() {
       };
 
       const move = determineMove();
-
       if (move) {
         await delay(500); // Introduce a delay before making the move
         tempBoard[move.column][move.row] = "lol";
