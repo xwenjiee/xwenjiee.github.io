@@ -42,8 +42,14 @@
   
 .notPlayerTurn:hover {
     background-color: red;
+    cursor: not-allowed;
   }
 
+  .columnFull:hover {
+    background-color: red;
+    cursor: not-allowed;
+  }
+  
   .gridItemEmpty {
     background-color: #f0f0f0;
     border: 2px solid rgb(23, 55, 114);
