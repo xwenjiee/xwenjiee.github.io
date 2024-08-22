@@ -129,13 +129,8 @@ function Board() {
   }, [board, lastMove]); // Dependency array includes `board` and `lastMove`
 
   useEffect(() => {
-    // const delay = (ms : number) => new Promise((resolve) => setTimeout(resolve, ms));
-    // const delay = (ms: number) => setTimeout(() => {}, ms);
-    // const delay = async (ms: number) => {
-    //   return new Promise((resolve) => setTimeout(resolve, ms));
-    // };
-
-    const delay = (ms: number): Promise<void> => new Promise<void>((resolve) => {
+    const delay = (ms: number): Promise<void> =>
+      new Promise<void>((resolve) => {
         setTimeout(() => {
           resolve(); // Call resolve without returning a value
         }, ms);
@@ -274,8 +269,6 @@ function Board() {
       setLastMove({ column, row }); // Track the last move
       return newBoard;
     });
-
-    // After board state updates and lastMove is set, `checkWinner` will be called
   }
 
   function getTokenType(item: string | null) {
