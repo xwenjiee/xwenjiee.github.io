@@ -116,7 +116,6 @@ function Board() {
   const [winnerFound, setWinnerFound] = useState(false);
   const [gameOver, setGameOver] = useState<string | null>(null);
   const [lastMove, setLastMove] = useState<{ column: number; row: number } | null>(null);
-
   const [open, setOpenError] = useState(false);
 
   const [openEndGame, setOpenEndGame] = useState(false);
@@ -136,13 +135,15 @@ function Board() {
 
   useEffect(() => {
     if (winnerFound && lastMove) {
-      let gameOverText = "";
       if (board[lastMove.column][lastMove.row] === "<3") {
-        gameOverText = "You win! Congratulations.";
+        setGameOver("You win! Congratulations.");
+        setOpenEndGame(true);
       } else if (board[lastMove.column][lastMove.row] === "lol") {
-        gameOverText = "You lose! Computer wins.";
+        setGameOver("You lose! Computer wins.");
+        setOpenEndGame(true);
       }
-      setGameOver(gameOverText);
+    } else if (!board.some((row) => row.includes(null)) && !winnerFound) {
+      setGameOver("It's a draw! No one wins.");
       setOpenEndGame(true);
     }
   }, [winnerFound, board, lastMove]);
@@ -274,14 +275,14 @@ function Board() {
                 nullFound = true;
                 column = idx;
                 row = idx2;
-                // checkWinner(column, row)
                 setLastMove({ column: idx, row: idx2 });
-                setPlayerTurn(false); // Optional: Update player turn status
+                setPlayerTurn(false);
                 return "<3"; // Player token
               }
               return item;
             });
           }
+
           if (idx === columnIndex && !col.includes(null)) {
             setOpenError(true);
           }
@@ -297,8 +298,6 @@ function Board() {
       const isWinner = checkWinner(column, row, token, board);
       if (isWinner) {
         setWinnerFound(true);
-      } else {
-        setPlayerTurn(false); // Switch to computer's turn
       }
     }
   }
