@@ -44,7 +44,6 @@ function checkLinesAndDiagonals(
 
 function checkWinner(col: number, row: number, token: string | null, board: BoardArray) {
   let winnerFound = false;
-  // let winner = "";
 
   console.log(token);
 
@@ -96,12 +95,6 @@ function checkWinner(col: number, row: number, token: string | null, board: Boar
     console.log("winner found!!!!!");
     winnerFound = true;
   }
-  // if (token === "<3") {
-  //   winner = "Player";
-  // }
-  // else if (token === "lol") {
-  //   winner = "Computer";
-  // }
 
   console.log("done");
 
@@ -121,7 +114,7 @@ function Board() {
   const [isPlayerTurn, setPlayerTurn] = useState(true);
 
   const [winnerFound, setWinnerFound] = useState(false);
-  const [winner, setWinner] = useState<string | null>(null);
+  const [gameOver, setGameOver] = useState<string | null>(null);
   const [lastMove, setLastMove] = useState<{ column: number; row: number } | null>(null);
 
   const [open, setOpenError] = useState(false);
@@ -143,13 +136,13 @@ function Board() {
 
   useEffect(() => {
     if (winnerFound && lastMove) {
-      let winnerName = "";
+      let gameOverText = "";
       if (board[lastMove.column][lastMove.row] === "<3") {
-        winnerName = "Player";
+        gameOverText = "You win! Congratulations.";
       } else if (board[lastMove.column][lastMove.row] === "lol") {
-        winnerName = "Computer";
+        gameOverText = "You lose! Computer wins.";
       }
-      setWinner(winnerName);
+      setGameOver(gameOverText);
       setOpenEndGame(true);
     }
   }, [winnerFound, board, lastMove]);
@@ -329,9 +322,10 @@ function Board() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box className={styles.endGameModal}>
-          <h1>Game Ended</h1>
-          The winner is {winner}
+        <Box className={styles.gameOverModal}>
+          <h1 className={styles.gameOverTitle}>Game Over!</h1>
+          <div className={styles.gameOverText}>{gameOver}</div>
+
           <div className={styles.buttonsDiv}>
             <CustomButton label="New Game" />
             <CustomButton label="Quit Game" />
