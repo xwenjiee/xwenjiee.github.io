@@ -346,7 +346,7 @@ function Board() {
         open={openConfirmRestart}
         close={handleCloseConfirmRestart}
         confirmationText="Are you sure you want to start a new game?"
-        action={() => resetGame}
+        action={() => resetGame()}
       />
 
       <Modal open={openEndGame} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
@@ -355,7 +355,7 @@ function Board() {
           <div className={styles.gameOverText}>{gameOver}</div>
 
           <div className={styles.modalButtonsContainer}>
-            <CustomButton label="New Game" onClick={() => resetGame} />
+            <CustomButton label="New Game" onClick={() => resetGame()} />
             <CustomButton label="Quit Game" to="/" />
           </div>
         </Box>
