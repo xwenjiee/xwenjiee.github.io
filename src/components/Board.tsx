@@ -168,6 +168,7 @@ function Board() {
               if (checkWinner(col, row, "lol", tempBoard)) {
                 return { column: col, row };
               }
+              break;
             }
           }
         }
@@ -179,6 +180,7 @@ function Board() {
               if (checkWinner(col, row, "<3", tempBoard)) {
                 return { column: col, row };
               }
+              break;
             }
           }
         }
@@ -203,6 +205,7 @@ function Board() {
               if (sameCol > 0 || sameRow > 0 || diagonal1 > 0 || diagonal2 > 0) {
                 return { column: col, row };
               }
+              break;
             }
           }
         }
@@ -265,7 +268,6 @@ function Board() {
           if (idx === columnIndex && col.includes(null)) {
             setOpenError(false);
             let nullFound = false;
-            // return col.map((item) => {
             return col.map((item, idx2) => {
               if (item === null && !nullFound) {
                 nullFound = true;
