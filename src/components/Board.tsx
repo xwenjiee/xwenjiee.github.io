@@ -325,7 +325,7 @@ function Board() {
           <h1 className={styles.gameOverTitle}>Game Over!</h1>
           <div className={styles.gameOverText}>{gameOver}</div>
 
-          <div className={styles.buttonsDiv}>
+          <div className={styles.buttonsContainer}>
             <CustomButton label="New Game" />
             <CustomButton label="Quit Game" />
           </div>
