@@ -37,26 +37,13 @@
     font-size: 7px;
 }
 
-.section {
-    margin-bottom: 1em;
-}
 
-.buttonsContainer {
-    width:fit-content;
-    margin:auto;
-    gap:5px;
-    display:flex;
-}
 
 @media (min-width: 600px) {
 
     .logo {
         width: 120px;
     }
-    .section {
-        margin-bottom: 1.25em;
-    }
-  
 
     .legendSection {
         font-size: x-small;
@@ -80,9 +67,7 @@
     .logo {
         width: 150px;
     }
-    .section {
-        margin-bottom: 1.5em;
-    }
+
     .legendSection {
         font-size: small;
     }
