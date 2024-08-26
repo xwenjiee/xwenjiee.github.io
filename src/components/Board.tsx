@@ -162,32 +162,30 @@ function Board() {
 
       const determineMove = () => {
         // 1. Check for winning move
-        for (let col = 0; col < colIdxLimit; col += 1) {
-          for (let row = 0; row < rowIdxLimit; row += 1) {
+        for (let col = 0; col <= colIdxLimit; col += 1) {
+          for (let row = 0; row <= rowIdxLimit; row += 1) {
             if (tempBoard[col][row] === null) {
               if (checkWinner(col, row, "lol", tempBoard)) {
                 return { column: col, row };
               }
-              break;
             }
           }
         }
 
         // 2. Check for blocking move
-        for (let col = 0; col < colIdxLimit; col += 1) {
-          for (let row = 0; row < rowIdxLimit; row += 1) {
+        for (let col = 0; col <= colIdxLimit; col += 1) {
+          for (let row = 0; row <= rowIdxLimit; row += 1) {
             if (tempBoard[col][row] === null) {
               if (checkWinner(col, row, "<3", tempBoard)) {
                 return { column: col, row };
               }
-              break;
             }
           }
         }
 
         // 3. Check for strategic move
-        for (let col = 0; col < colIdxLimit; col += 1) {
-          for (let row = 0; row < rowIdxLimit; row += 1) {
+        for (let col = 0; col <= colIdxLimit; col += 1) {
+          for (let row = 0; row <= rowIdxLimit; row += 1) {
             if (tempBoard[col][row] === null) {
               const sameCol =
                 checkLinesAndDiagonals(col, row, colIdxLimit, rowIdxLimit, 0, -1, "lol", tempBoard) +
@@ -205,7 +203,6 @@ function Board() {
               if (sameCol > 0 || sameRow > 0 || diagonal1 > 0 || diagonal2 > 0) {
                 return { column: col, row };
               }
-              break;
             }
           }
         }
@@ -213,9 +210,9 @@ function Board() {
         // 4. Make a random move
         const validColumns = [];
 
-        for (let col = 0; col < colIdxLimit; col += 1) {
+        for (let col = 0; col <= colIdxLimit; col += 1) {
           if (tempBoard[col].includes(null)) {
-            for (let row = 0; row < rowIdxLimit; row += 1) {
+            for (let row = 0; row <= rowIdxLimit; row += 1) {
               if (
                 (col === 0 && (tempBoard[col][row] === "<3" || tempBoard[col + 1]?.[row] === "<3")) ||
                 (col === 6 && (tempBoard[col][row] === "<3" || tempBoard[col - 1]?.[row] === "<3")) ||
@@ -231,10 +228,9 @@ function Board() {
             }
           }
         }
-
         if (validColumns.length > 0) {
           const randomCol = validColumns[Math.floor(Math.random() * validColumns.length)];
-          for (let row = 0; row < rowIdxLimit; row += 1) {
+          for (let row = 0; row <= rowIdxLimit; row += 1) {
             if (tempBoard[randomCol][row] === null) {
               return { column: randomCol, row };
             }
@@ -311,16 +307,10 @@ function Board() {
     }
     return "#272727";
   }
-  // const handleEndGameClose = () => setOpenEndGame(false);
 
   return (
     <>
-      <Modal
-        open={openEndGame}
-        // onClose={handleEndGameClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+      <Modal open={openEndGame} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
         <Box className={styles.gameOverModal}>
           <h1 className={styles.gameOverTitle}>Game Over!</h1>
           <div className={styles.gameOverText}>{gameOver}</div>
