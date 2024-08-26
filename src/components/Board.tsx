@@ -1,7 +1,10 @@
 import { Alert, Snackbar, SnackbarCloseReason } from "@mui/material";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
 import clsx from "clsx";
 import { useState, useEffect } from "react";
 import styles from "./Board.module.css";
+import CustomButton from "./Button";
 
 type BoardArray = Array<Array<string | null>>;
 
@@ -40,7 +43,7 @@ function checkLinesAndDiagonals(
 }
 
 function checkWinner(col: number, row: number, token: string | null, board: BoardArray) {
-  let winner = false;
+  let winnerFound = false;
 
   console.log(token);
 
@@ -57,7 +60,7 @@ function checkWinner(col: number, row: number, token: string | null, board: Boar
 
   if (totalConsecSameCol === 4) {
     console.log("winner found!!!!!");
-    winner = true;
+    winnerFound = true;
   }
 
   // check straight same row
@@ -68,7 +71,7 @@ function checkWinner(col: number, row: number, token: string | null, board: Boar
 
   if (totalConsecSameRow === 4) {
     console.log("winner found!!!!!");
-    winner = true;
+    winnerFound = true;
   }
 
   // check diagonal left up and right down
@@ -79,7 +82,7 @@ function checkWinner(col: number, row: number, token: string | null, board: Boar
 
   if (totalConsecLeftUpRightDown === 4) {
     console.log("winner found!!!!!");
-    winner = true;
+    winnerFound = true;
   }
 
   // check diagonal right up and left down
@@ -90,15 +93,15 @@ function checkWinner(col: number, row: number, token: string | null, board: Boar
 
   if (totalConsecRightUpLeftDown === 4) {
     console.log("winner found!!!!!");
-    winner = true;
+    winnerFound = true;
   }
 
   console.log("done");
 
   // exclude negatives
-  console.log(winner);
+  console.log(winnerFound);
 
-  return winner;
+  return winnerFound;
 }
 
 function Board() {
@@ -111,9 +114,11 @@ function Board() {
   const [isPlayerTurn, setPlayerTurn] = useState(true);
 
   const [winnerFound, setWinnerFound] = useState(false);
+  const [gameOver, setGameOver] = useState<string | null>(null);
   const [lastMove, setLastMove] = useState<{ column: number; row: number } | null>(null);
-
   const [open, setOpenError] = useState(false);
+
+  const [openEndGame, setOpenEndGame] = useState(false);
 
   const handleClose = (_event: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
     if (reason === "clickaway") {
@@ -127,6 +132,21 @@ function Board() {
       setWinnerFound(checkWinner(lastMove.column, lastMove.row, board[lastMove.column][lastMove.row], board));
     }
   }, [board, lastMove]); // Dependency array includes `board` and `lastMove`
+
+  useEffect(() => {
+    if (winnerFound && lastMove) {
+      if (board[lastMove.column][lastMove.row] === "<3") {
+        setGameOver("You win! Congratulations.");
+        setOpenEndGame(true);
+      } else if (board[lastMove.column][lastMove.row] === "lol") {
+        setGameOver("You lose! Computer wins.");
+        setOpenEndGame(true);
+      }
+    } else if (!board.some((row) => row.includes(null)) && !winnerFound) {
+      setGameOver("It's a draw! No one wins.");
+      setOpenEndGame(true);
+    }
+  }, [winnerFound, board, lastMove]);
 
   useEffect(() => {
     const delay = (ms: number): Promise<void> =>
@@ -228,6 +248,7 @@ function Board() {
       if (move) {
         await delay(500); // Introduce a delay before making the move
         tempBoard[move.column][move.row] = "lol";
+        setLastMove({ column: move.column, row: move.row });
         setBoard(tempBoard);
         setPlayerTurn(true);
       }
@@ -242,33 +263,43 @@ function Board() {
     let column = 0;
     let row = 0;
 
-    setBoard((prevBoard) => {
-      const newBoard = prevBoard.map((col, idx) => {
-        if (idx === columnIndex && col.includes(null)) {
-          setOpenError(false);
-          let nullFound = false;
-          // return col.map((item) => {
-          return col.map((item, idx2) => {
-            if (item === null && !nullFound) {
-              nullFound = true;
-              column = idx;
-              row = idx2;
-              // checkWinner(column, row)
-              setPlayerTurn(false); // Optional: Update player turn status
-              return "<3"; // Player token
-            }
-            return item;
-          });
-        }
-        if (idx === columnIndex && !col.includes(null)) {
-          setOpenError(true);
-        }
-        return col;
+    if (!winnerFound) {
+      setBoard((prevBoard) => {
+        const newBoard = prevBoard.map((col, idx) => {
+          if (idx === columnIndex && col.includes(null)) {
+            setOpenError(false);
+            let nullFound = false;
+            // return col.map((item) => {
+            return col.map((item, idx2) => {
+              if (item === null && !nullFound) {
+                nullFound = true;
+                column = idx;
+                row = idx2;
+                setLastMove({ column: idx, row: idx2 });
+                setPlayerTurn(false);
+                return "<3"; // Player token
+              }
+              return item;
+            });
+          }
+
+          if (idx === columnIndex && !col.includes(null)) {
+            setOpenError(true);
+          }
+          return col;
+        });
+
+        // Track the last move
+        return newBoard;
       });
 
-      setLastMove({ column, row }); // Track the last move
-      return newBoard;
-    });
+      // Check for a winner after the board has been updated
+      const token = "<3"; // Player token
+      const isWinner = checkWinner(column, row, token, board);
+      if (isWinner) {
+        setWinnerFound(true);
+      }
+    }
   }
 
   function getTokenType(item: string | null) {
@@ -280,9 +311,26 @@ function Board() {
     }
     return "#272727";
   }
+  // const handleEndGameClose = () => setOpenEndGame(false);
 
   return (
     <>
+      <Modal
+        open={openEndGame}
+        // onClose={handleEndGameClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box className={styles.gameOverModal}>
+          <h1 className={styles.gameOverTitle}>Game Over!</h1>
+          <div className={styles.gameOverText}>{gameOver}</div>
+
+          <div className={styles.buttonsDiv}>
+            <CustomButton label="New Game" />
+            <CustomButton label="Quit Game" />
+          </div>
+        </Box>
+      </Modal>
       <Snackbar
         open={open}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}

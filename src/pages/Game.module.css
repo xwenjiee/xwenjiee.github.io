@@ -41,7 +41,7 @@
     margin-bottom: 1em;
 }
 
-.buttonsDiv {
+.buttonsContainer {
     width:fit-content;
     margin:auto;
     gap:5px;
