@@ -33,10 +33,10 @@ export default function Game() {
       <img alt="Connect 4 logo" className={styles.logo} src="src\assets\logo-removebg-preview.png" />
       <TokenIndicator />
       <div className={`${styles.section} ${styles.card}`}>
-      <Board />
+        <Board />
       </div>
       <div className={styles.section}>
-        <div className={styles.buttonsDiv}>
+        <div className={styles.buttonsContainer}>
           <CustomButton label="Restart Game" />
           <CustomButton label="End Game" to="/" />
           <Instructions label="" />
