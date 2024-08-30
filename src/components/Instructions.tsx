@@ -3,12 +3,12 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import * as React from "react";
+import { useState } from "react";
 import CustomButton from "./Button";
 import styles from "./Instructions.module.css";
 
 function Instructions({ label }: { label: string }) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 

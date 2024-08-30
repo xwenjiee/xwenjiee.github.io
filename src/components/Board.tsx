@@ -5,6 +5,8 @@ import clsx from "clsx";
 import { useState, useEffect } from "react";
 import styles from "./Board.module.css";
 import CustomButton from "./Button";
+import Confirmation from "./Confirmation";
+import Instructions from "./Instructions";
 
 type BoardArray = Array<Array<string | null>>;
 
@@ -117,15 +119,22 @@ function Board() {
   const [gameOver, setGameOver] = useState<string | null>(null);
   const [lastMove, setLastMove] = useState<{ column: number; row: number } | null>(null);
   const [open, setOpenError] = useState(false);
-
-  const [openEndGame, setOpenEndGame] = useState(false);
-
   const handleClose = (_event: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
     if (reason === "clickaway") {
       return;
     }
     setOpenError(false);
   };
+
+  const [openEndGame, setOpenEndGame] = useState(false);
+
+  const [openConfirmQuit, setOpenConfirmQuit] = useState(false);
+  const handleOpenConfirmQuit = () => setOpenConfirmQuit(true);
+  const handleCloseConfirmQuit = () => setOpenConfirmQuit(false);
+
+  const [openConfirmRestart, setOpenConfirmRestart] = useState(false);
+  const handleOpenConfirmRestart = () => setOpenConfirmRestart(true);
+  const handleCloseConfirmRestart = () => setOpenConfirmRestart(false);
 
   useEffect(() => {
     if (lastMove) {
@@ -310,19 +319,48 @@ function Board() {
     return "#272727";
   }
 
+  function resetGame() {
+    setBoard(
+      Array(7)
+        .fill(null)
+        .map(() => Array(6).fill(null))
+    );
+    setPlayerTurn(true);
+    setWinnerFound(false);
+    setGameOver(null);
+    setLastMove(null);
+    setOpenError(false);
+    setOpenEndGame(false);
+    handleCloseConfirmRestart();
+  }
+
   return (
     <>
+      <Confirmation
+        open={openConfirmQuit}
+        close={handleCloseConfirmQuit}
+        confirmationText="Are you sure you want to quit the game?"
+        to="/"
+      />
+      <Confirmation
+        open={openConfirmRestart}
+        close={handleCloseConfirmRestart}
+        confirmationText="Are you sure you want to start a new game?"
+        action={() => resetGame()}
+      />
+
       <Modal open={openEndGame} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
         <Box className={styles.gameOverModal}>
           <h1 className={styles.gameOverTitle}>Game Over!</h1>
           <div className={styles.gameOverText}>{gameOver}</div>
 
-          <div className={styles.buttonsContainer}>
-            <CustomButton label="New Game" />
-            <CustomButton label="Quit Game" />
+          <div className={styles.modalButtonsContainer}>
+            <CustomButton label="New Game" onClick={() => resetGame()} />
+            <CustomButton label="Quit Game" to="/" />
           </div>
         </Box>
       </Modal>
+
       <Snackbar
         open={open}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
@@ -370,6 +408,11 @@ function Board() {
               ))}
           </div>
         ))}
+      </div>
+      <div className={styles.boardButtonsContainer}>
+        <CustomButton label="Restart Game" onClick={handleOpenConfirmRestart} />
+        <CustomButton label="End Game" onClick={handleOpenConfirmQuit} />
+        <Instructions label="" />
       </div>
     </>
   );
