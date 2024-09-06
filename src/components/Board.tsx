@@ -4,6 +4,7 @@ import Modal from "@mui/material/Modal";
 import axios from "axios";
 import clsx from "clsx";
 import { useState, useEffect, useRef, useCallback } from "react";
+import { GameData } from "../GameContext";
 import styles from "./Board.module.css";
 import CustomButton from "./Button";
 import Confirmation from "./Confirmation";
@@ -11,18 +12,6 @@ import CustomGameIDTextField from "./GameIDTextField";
 import Instructions from "./Instructions";
 
 type BoardArray = Array<Array<string | null>>;
-
-interface GameData {
-  id: string;
-  data: {
-    board: string;
-    isPlayerTurn: string;
-    gameOver: string;
-    lastMove: string;
-    openEndGame: string;
-    winnerFound: string;
-  };
-}
 
 function checkLinesAndDiagonals(
   col: number,
@@ -207,10 +196,8 @@ function Board({ gameData }: { gameData: GameData | null }) {
         console.log("Data fetched successfully:", response.data);
         return response.data;
       }
-      if (!isGameData(data)) {
-        console.log("Data is not valid:", response.data);
-        return response.data;
-      }
+      console.log("Data is not valid:", response.data);
+      return response.data;
     } catch (error: unknown) {
       if (axios.isAxiosError(error) && error.response) {
         console.error("Error fetching data:", error.response.data);

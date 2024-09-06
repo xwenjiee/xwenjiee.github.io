@@ -1,6 +1,7 @@
 import { createContext, Dispatch, SetStateAction } from "react";
 
-interface GameData {
+// Define the GameData interface
+export interface GameData {
   id: string;
   data: {
     board: string;
@@ -13,7 +14,7 @@ interface GameData {
 }
 
 // Define a type for the context value
-interface GameContextType {
+export interface GameContextType {
   gameData: GameData | null;
   setGameData: Dispatch<SetStateAction<GameData | null>>;
 }

@@ -12,7 +12,6 @@ function App() {
   const [openError, setOpenError] = useState(false);
   const [errorText, setErrorText] = useState("");
 
-  // Move useContext, useRef, and useNavigate outside of the conditional logic
   const gameContext = useContext(GameContext);
   const gameIDRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();

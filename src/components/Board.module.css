@@ -122,26 +122,6 @@
   display:flex;
 }
 
-.gameOverTitle {
-  font-size: 40px;
-  color: hsl(345, 100%, 47%);
-  text-shadow:
-      -1px -1px 0 #3a0808, 
-      1px -1px 0 #3a0808,  
-      -1px 1px 0 #3a0808,  
-      1px 1px 0 #3a0808;/* Outline color */
-}
-
-.saveGameInputTitle {
-  font-size: 40px;
-  color: hsl(345, 100%, 47%);
-  text-shadow:
-      -1px -1px 0 #3a0808, 
-      1px -1px 0 #3a0808,  
-      -1px 1px 0 #3a0808,  
-      1px 1px 0 #3a0808;/* Outline color */
-}
-
 .saveGameInputText {
   font-size: large;
   font-weight: bold;
