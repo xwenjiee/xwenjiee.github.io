@@ -1,14 +1,28 @@
 import { Alert, Snackbar, SnackbarCloseReason } from "@mui/material";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
+import axios from "axios";
 import clsx from "clsx";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./Board.module.css";
 import CustomButton from "./Button";
 import Confirmation from "./Confirmation";
+import CustomGameIDTextField from "./GameIDTextField";
 import Instructions from "./Instructions";
 
 type BoardArray = Array<Array<string | null>>;
+
+interface GameData {
+  id: string;
+  data: {
+    board: string;
+    isPlayerTurn: string;
+    gameOver: string;
+    lastMove: string;
+    openEndGame: string;
+    winnerFound: string;
+  };
+}
 
 function checkLinesAndDiagonals(
   col: number,
@@ -44,6 +58,22 @@ function checkLinesAndDiagonals(
   return consecutive;
 }
 
+// basic validation to validate that its my data (not corrupted/someone else's game data)
+function isGameData(data: unknown): data is GameData {
+  return (
+    typeof data === "object" &&
+    data !== null &&
+    typeof (data as GameData).id === "string" &&
+    typeof (data as GameData).data === "object" &&
+    (data as GameData).data !== null &&
+    typeof (data as GameData).data.board === "string" &&
+    typeof (data as GameData).data.isPlayerTurn === "string" &&
+    typeof (data as GameData).data.gameOver === "string" &&
+    typeof (data as GameData).data.lastMove === "string" &&
+    typeof (data as GameData).data.openEndGame === "string" &&
+    typeof (data as GameData).data.winnerFound === "string"
+  );
+}
 function checkWinner(col: number, row: number, token: string | null, board: BoardArray) {
   let winnerFound = false;
 
@@ -106,7 +136,8 @@ function checkWinner(col: number, row: number, token: string | null, board: Boar
   return winnerFound;
 }
 
-function Board() {
+function Board({ gameData }: { gameData: GameData | null }) {
+  const prefix = "connect-4-wj-";
   const [board, setBoard] = useState<BoardArray>(
     Array(7)
       .fill(null)
@@ -118,7 +149,41 @@ function Board() {
   const [winnerFound, setWinnerFound] = useState(false);
   const [gameOver, setGameOver] = useState<string | null>(null);
   const [lastMove, setLastMove] = useState<{ column: number; row: number } | null>(null);
-  const [open, setOpenError] = useState(false);
+  const [thisGameData, setThisGameData] = useState<GameData | null | undefined>(gameData);
+  const [postedEndGame, setPostedEndGame] = useState(false);
+
+  const [openEndGame, setOpenEndGame] = useState(false);
+  const [openSaveGameSuccess, setOpenSaveGameSuccess] = useState(false);
+  const handleCloseSaveGameSuccess = (_event: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSaveGameSuccess(false);
+  };
+
+  const [openSaveGameInput, setOpenSaveGameInput] = useState(false);
+  const handleCloseSaveGameInput = () => setOpenSaveGameInput(false);
+
+  useEffect(() => {
+    if (thisGameData !== undefined && thisGameData !== null && isGameData(thisGameData)) {
+      const parsedBoard = JSON.parse(thisGameData.data.board);
+      const parsedIsPlayerTurn = JSON.parse(thisGameData.data.isPlayerTurn);
+      const parsedGameOver = JSON.parse(thisGameData.data.gameOver);
+      const parsedLastMove = JSON.parse(thisGameData.data.lastMove);
+      const parsedWinnerFound = JSON.parse(thisGameData.data.winnerFound);
+      const parsedOpenEndGame = JSON.parse(thisGameData.data.openEndGame);
+
+      setBoard(parsedBoard);
+      setPlayerTurn(parsedIsPlayerTurn);
+      setWinnerFound(parsedWinnerFound);
+      setGameOver(parsedGameOver);
+      setLastMove(parsedLastMove);
+      setOpenEndGame(parsedOpenEndGame);
+    }
+  }, [thisGameData]);
+
+  const [openError, setOpenError] = useState(false);
+  const [errorText, setErrorText] = useState("");
   const handleClose = (_event: React.SyntheticEvent | Event, reason?: SnackbarCloseReason) => {
     if (reason === "clickaway") {
       return;
@@ -126,7 +191,140 @@ function Board() {
     setOpenError(false);
   };
 
-  const [openEndGame, setOpenEndGame] = useState(false);
+  const fetchData = async (id: string) => {
+    try {
+      const response = await axios.get("https://cpy6alcm5f.execute-api.ap-southeast-1.amazonaws.com/", {
+        params: {
+          id: prefix.concat(id),
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const { data } = response;
+
+      if (isGameData(data)) {
+        console.log("Data fetched successfully:", response.data);
+        return response.data;
+      }
+      if (!isGameData(data)) {
+        console.log("Data is not valid:", response.data);
+        return response.data;
+      }
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error) && error.response) {
+        console.error("Error fetching data:", error.response.data);
+      } else {
+        console.error("Error message:", (error as Error).message);
+      }
+      return null;
+    }
+  };
+
+  // const postData = async (id: string) => {
+  //     try {
+  //       const response = await axios.post(
+  //         "https://cpy6alcm5f.execute-api.ap-southeast-1.amazonaws.com/",
+  //         {
+  //           id: prefix.concat(id),
+  //           data: {
+  //             board: JSON.stringify(board),
+  //             isPlayerTurn: JSON.stringify(isPlayerTurn),
+  //             gameOver: JSON.stringify(gameOver),
+  //             lastMove: JSON.stringify(lastMove),
+  //             winnerFound: JSON.stringify(winnerFound),
+  //             openEndGame: JSON.stringify(openEndGame),
+  //           },
+  //         },
+  //         {
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //           },
+  //         }
+  //       );
+
+  //       console.log("Data posted successfully:", response.data);
+  //       if (response.data) {
+  //         handleCloseSaveGameInput();
+  //         setOpenSaveGameSuccess(true);
+  //       }
+
+  //       const updatedData = await fetchData(id);
+  //       setThisGameData(updatedData);
+  //     } catch (error: unknown) {
+  //       setErrorText("Error saving game.");
+  //       setOpenError(true);
+
+  //       if (axios.isAxiosError(error) && error.response) {
+  //         console.error("Error response:", error.response.data);
+  //       } else if (axios.isAxiosError(error)) {
+  //         console.error("Error request:", error.request);
+  //       } else {
+  //         console.error("Error message:", (error as Error).message);
+  //       }
+  //     }
+  //   };
+
+  const postData = useCallback(
+    async (id: string) => {
+      try {
+        const response = await axios.post(
+          "https://cpy6alcm5f.execute-api.ap-southeast-1.amazonaws.com/",
+          {
+            id: prefix.concat(id),
+            data: {
+              board: JSON.stringify(board),
+              isPlayerTurn: JSON.stringify(isPlayerTurn),
+              gameOver: JSON.stringify(gameOver),
+              lastMove: JSON.stringify(lastMove),
+              winnerFound: JSON.stringify(winnerFound),
+              openEndGame: JSON.stringify(openEndGame),
+            },
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        console.log("Data posted successfully:", response.data);
+        if (response.data) {
+          handleCloseSaveGameInput();
+          setOpenSaveGameSuccess(true);
+        }
+
+        const updatedData = await fetchData(id);
+        setThisGameData(updatedData);
+      } catch (error: unknown) {
+        setErrorText("Error saving game.");
+        setOpenError(true);
+
+        if (axios.isAxiosError(error) && error.response) {
+          console.error("Error response:", error.response.data);
+        } else if (axios.isAxiosError(error)) {
+          console.error("Error request:", error.request);
+        } else {
+          console.error("Error message:", (error as Error).message);
+        }
+      }
+    },
+    [board, isPlayerTurn, gameOver, lastMove, winnerFound, openEndGame, prefix] // Add dependencies
+  );
+
+  async function handleOpenSaveGame() {
+    if (thisGameData) {
+      try {
+        await postData(thisGameData.id.replace(/^connect-4-wj-/, ""));
+      } catch (error) {
+        setErrorText("Error saving game.");
+        setOpenError(true);
+        console.error("Error while saving game or fetching data:", error);
+      }
+    } else {
+      setOpenSaveGameInput(true);
+    }
+  }
 
   const [openConfirmQuit, setOpenConfirmQuit] = useState(false);
   const handleOpenConfirmQuit = () => setOpenConfirmQuit(true);
@@ -140,34 +338,45 @@ function Board() {
     if (lastMove) {
       setWinnerFound(checkWinner(lastMove.column, lastMove.row, board[lastMove.column][lastMove.row], board));
     }
-  }, [board, lastMove]); // Dependency array includes `board` and `lastMove`
+  }, [board, lastMove]);
 
   useEffect(() => {
     if (winnerFound && lastMove) {
-      if (board[lastMove.column][lastMove.row] === "<3") {
+      const lastToken = board[lastMove.column][lastMove.row];
+
+      if (lastToken === "<3") {
         setGameOver("You win! Congratulations.");
-        setOpenEndGame(true);
-      } else if (board[lastMove.column][lastMove.row] === "lol") {
+      } else if (lastToken === "lol") {
         setGameOver("You lose! Computer wins.");
-        setOpenEndGame(true);
       }
+
+      if (thisGameData && !postedEndGame) {
+        postData(thisGameData.id.replace(/^connect-4-wj-/, ""));
+        setPostedEndGame(true);
+      }
+      setOpenEndGame(true);
     } else if (!board.some((row) => row.includes(null)) && !winnerFound) {
       setGameOver("It's a draw! No one wins.");
+
+      if (thisGameData && !postedEndGame) {
+        postData(thisGameData.id.replace(/^connect-4-wj-/, ""));
+        setPostedEndGame(true);
+      }
       setOpenEndGame(true);
     }
-  }, [winnerFound, board, lastMove]);
+  }, [winnerFound, board, lastMove, thisGameData, postedEndGame, postData]);
 
   useEffect(() => {
     const delay = (ms: number): Promise<void> =>
       new Promise<void>((resolve) => {
         setTimeout(() => {
-          resolve(); // Call resolve without returning a value
+          resolve();
         }, ms);
       });
     const computerMove = async () => {
       const tempBoard = board.map((row) => [...row]);
-      const colIdxLimit = 6; // Adjusted based on the board size (0-6 for 7 columns)
-      const rowIdxLimit = 5; // Adjusted based on the board size (0-5 for 6 rows)
+      const colIdxLimit = 6;
+      const rowIdxLimit = 5;
 
       const determineMove = () => {
         // 1. Check for winning move
@@ -235,7 +444,7 @@ function Board() {
                     tempBoard[col + 1]?.[row] === "<3"))
               ) {
                 validColumns.push(col);
-                break; // No need to keep checking rows in this column
+                break;
               }
             }
           }
@@ -249,12 +458,12 @@ function Board() {
           }
         }
 
-        return null; // In case no valid move is found (shouldn't happen)
+        return null;
       };
 
       const move = determineMove();
       if (move) {
-        await delay(500); // Introduce a delay before making the move
+        await delay(500);
         tempBoard[move.column][move.row] = "lol";
         setLastMove({ column: move.column, row: move.row });
         setBoard(tempBoard);
@@ -291,6 +500,7 @@ function Board() {
           }
 
           if (idx === columnIndex && !col.includes(null)) {
+            setErrorText("You cannot place tokens in a full column!");
             setOpenError(true);
           }
           return col;
@@ -332,10 +542,48 @@ function Board() {
     setOpenError(false);
     setOpenEndGame(false);
     handleCloseConfirmRestart();
+    setThisGameData(undefined);
   }
+
+  const gameIDRef = useRef<HTMLInputElement>(null);
+
+  const handleSaveGameInput = async () => {
+    if (gameIDRef.current) {
+      const gameID = gameIDRef.current.value.trim();
+
+      if (gameID.trim() === "") {
+        setErrorText("Game ID cannot be empty.");
+        setOpenError(true);
+        return;
+      }
+      if (!/^[a-zA-Z0-9]+$/.test(gameID)) {
+        setErrorText("Game ID must be alphanumeric and cannot contain spaces.");
+        setOpenError(true);
+        return; // Exit the function if validation fails
+      }
+
+      try {
+        const exist = await fetchData(gameID);
+        if (exist.message === "Entry not found") {
+          setOpenError(false);
+          await postData(gameID);
+        } else {
+          setErrorText("Game ID is already taken.");
+          setOpenError(true);
+        }
+      } catch (error) {
+        console.error("Error while saving game or fetching data:", error);
+      }
+    }
+  };
 
   return (
     <>
+      {thisGameData?.id ? (
+        <p>Game ID: {thisGameData.id.replace(/^connect-4-wj-/, "")}</p>
+      ) : (
+        <p>No game data available.</p>
+      )}
       <Confirmation
         open={openConfirmQuit}
         close={handleCloseConfirmQuit}
@@ -349,8 +597,28 @@ function Board() {
         action={() => resetGame()}
       />
 
+      {/* no game id found, prompt to enter keyword */}
+      <Modal open={openSaveGameInput} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+        <Box className={styles.actionModal}>
+          <h1 className={styles.saveGameTitle}>Save Game</h1>
+          <div className={styles.saveGameInputText}>
+            <CustomGameIDTextField
+              inputRef={gameIDRef}
+              helperText="Create a unique game ID to save your game (alphanumeric)"
+              label="Game ID"
+              id="custom-css-outlined-input"
+              action={handleSaveGameInput}
+            />
+          </div>
+          <div className={styles.modalButtonsContainer}>
+            <CustomButton save label="Save Game" onClick={handleSaveGameInput} />
+            <CustomButton label="Cancel" onClick={handleCloseSaveGameInput} />
+          </div>
+        </Box>
+      </Modal>
+
       <Modal open={openEndGame} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
-        <Box className={styles.gameOverModal}>
+        <Box className={styles.actionModal}>
           <h1 className={styles.gameOverTitle}>Game Over!</h1>
           <div className={styles.gameOverText}>{gameOver}</div>
 
@@ -361,21 +629,35 @@ function Board() {
         </Box>
       </Modal>
 
+      {/* error snackbar */}
       <Snackbar
-        open={open}
+        open={openError}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         autoHideDuration={2000}
         onClose={handleClose}
       >
         <Alert onClose={handleClose} severity="error" variant="filled" sx={{ width: "100%" }}>
-          You cannot place tokens in a full column!
+          {errorText}
         </Alert>
       </Snackbar>
+
+      {/* success snackbar */}
+      <Snackbar
+        open={openSaveGameSuccess}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        autoHideDuration={2000}
+        onClose={handleCloseSaveGameSuccess}
+      >
+        <Alert onClose={handleCloseSaveGameSuccess} severity="success" variant="filled" sx={{ width: "100%" }}>
+          Game saved.
+        </Alert>
+      </Snackbar>
+
       <div className={styles.grid}>
         {board.map((column, columnIndex) => (
           <div
             id={`col-${columnIndex}`}
-            //   key={`column-${columnIndex}`}
+            // key={`col-${columnIndex}`}
             className={clsx(styles.gridColumn, {
               [styles.playerTurn]: isPlayerTurn,
               [styles.notPlayerTurn]: !isPlayerTurn,
@@ -412,6 +694,7 @@ function Board() {
       <div className={styles.boardButtonsContainer}>
         <CustomButton label="Restart Game" onClick={handleOpenConfirmRestart} />
         <CustomButton label="End Game" onClick={handleOpenConfirmQuit} />
+        <CustomButton label="Save Game" save onClick={handleOpenSaveGame} />
         <Instructions label="" />
       </div>
     </>

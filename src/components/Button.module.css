@@ -8,6 +8,7 @@
   width: fit-content;
   outline-offset: 4px;
   margin: auto;
+ 
 
 }
 
@@ -17,29 +18,32 @@
 
 .front {
   border-radius: 12px ;
-  font-size: small ;
+  font-size:small ;
   background: hsl(345, 100%, 47%) ;
   color: white ;
   transform: translateY(-6px) ;
   text-transform: capitalize;
   font-family: "Silkscreen", sans-serif ;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) ;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  width: 100%;
+
   
 }
 
 .icon {
   font-size: large ;
 }
-.primary {
-  background: hsl(346, 65%, 70%) ;
+.save {
+  background: hsl(133, 41%, 53%) ;
   }
 
 .help {
   background: hsl(39, 100%, 65%);
+
 }
 
 .iconButton {
-  height: 100%;
+  height: 57.5px;
 }
 
 .pushable:active .front {
@@ -58,12 +62,23 @@
   background: hsl(39, 85%, 46%) ;
 }
 
+.save:hover {
+  background: hsl(133, 32%, 50%) ;
+  }
+
+  .savePushable {
+    background: hsl(133, 47%, 29%);
+  }
+
 @media (min-width: 600px) {
   .front {
-    font-size: medium ;
+    font-size: small ;
   }
   .icon {
-    font-size: x-large ;
+    font-size: large ;
+  }
+  .iconButton {
+    height: 100%;
   }
 
   
