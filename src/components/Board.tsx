@@ -221,50 +221,6 @@ function Board({ gameData }: { gameData: GameData | null }) {
     }
   };
 
-  // const postData = async (id: string) => {
-  //     try {
-  //       const response = await axios.post(
-  //         "https://cpy6alcm5f.execute-api.ap-southeast-1.amazonaws.com/",
-  //         {
-  //           id: prefix.concat(id),
-  //           data: {
-  //             board: JSON.stringify(board),
-  //             isPlayerTurn: JSON.stringify(isPlayerTurn),
-  //             gameOver: JSON.stringify(gameOver),
-  //             lastMove: JSON.stringify(lastMove),
-  //             winnerFound: JSON.stringify(winnerFound),
-  //             openEndGame: JSON.stringify(openEndGame),
-  //           },
-  //         },
-  //         {
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-  //         }
-  //       );
-
-  //       console.log("Data posted successfully:", response.data);
-  //       if (response.data) {
-  //         handleCloseSaveGameInput();
-  //         setOpenSaveGameSuccess(true);
-  //       }
-
-  //       const updatedData = await fetchData(id);
-  //       setThisGameData(updatedData);
-  //     } catch (error: unknown) {
-  //       setErrorText("Error saving game.");
-  //       setOpenError(true);
-
-  //       if (axios.isAxiosError(error) && error.response) {
-  //         console.error("Error response:", error.response.data);
-  //       } else if (axios.isAxiosError(error)) {
-  //         console.error("Error request:", error.request);
-  //       } else {
-  //         console.error("Error message:", (error as Error).message);
-  //       }
-  //     }
-  //   };
-
   const postData = useCallback(
     async (id: string) => {
       try {
