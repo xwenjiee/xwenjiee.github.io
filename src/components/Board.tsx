@@ -235,10 +235,8 @@ function Board({ gameData }: { gameData: GameData | null }) {
         if (response.data) {
           handleCloseSaveGameInput();
           setOpenSaveGameSuccess(true);
+          setThisGameData(response.data);
         }
-
-        const updatedData = await fetchData(id);
-        setThisGameData(updatedData);
       } catch (error: unknown) {
         setErrorText("Error saving game.");
         setOpenError(true);
