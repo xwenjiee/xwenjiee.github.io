@@ -2,6 +2,7 @@
   "name": "starter-template",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://xwenjiee.github.io/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
