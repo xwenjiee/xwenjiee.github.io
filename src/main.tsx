@@ -8,11 +8,11 @@ import "./index.css";
 
 const router = createBrowserRouter([
   {
-    path: "/game",
+    path: "/connect-4-wj/game",
     element: <Game />,
   },
   {
-    path: "/",
+    path: "/connect-4-wj/",
     element: <App />,
   },
 ]);
