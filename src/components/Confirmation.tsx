@@ -13,18 +13,18 @@ type ConfirmationProps = {
 };
 
 const Confirmation: React.FC<ConfirmationProps> = ({ open, close, confirmationText, to, action }) => (
-    <Modal open={open} onClose={close} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
-      <Box className={styles.confirmationModal}>
-        <h1 className={styles.confirmationTitle}>Are you sure?</h1>
-        <div className={styles.confirmationText}>{confirmationText}</div>
+  <Modal open={open} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+    <Box className={styles.confirmationModal}>
+      <h1 className={styles.confirmationTitle}>Are you sure?</h1>
+      <div className={styles.confirmationText}>{confirmationText}</div>
 
-        <div className={styles.modalButtonsContainer}>
-          <CustomButton label="Confirm" to={to} onClick={action} />
-          <CustomButton label="Cancel" onClick={close} />
-        </div>
-      </Box>
-    </Modal>
-  );
+      <div className={styles.modalButtonsContainer}>
+        <CustomButton label="Confirm" to={to} onClick={action} />
+        <CustomButton label="Cancel" onClick={close} />
+      </div>
+    </Box>
+  </Modal>
+);
 
 Confirmation.propTypes = {
   open: PropTypes.bool.isRequired,

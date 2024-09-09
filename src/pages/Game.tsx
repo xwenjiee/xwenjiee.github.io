@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { GameContext } from "../GameContext";
 import Board from "../components/Board";
 import styles from "./Game.module.css";
 
@@ -16,12 +18,21 @@ function TokenIndicator() {
 }
 
 export default function Game() {
+  const gameContext = useContext(GameContext);
+
+  if (!gameContext) {
+    return <div>Error: Game context unavailable.</div>;
+  }
+
+  const { gameData } = gameContext;
+
   return (
     <div className={styles.game}>
-      <img alt="Connect 4 logo" className={styles.logo} src="src\assets\logo-removebg-preview.png" />
-      <TokenIndicator />
-      <div className={`${styles.section}`}>
-        <Board />
+      <img alt="Connect 4 logo" className={styles.logo} src="src/assets/logo-removebg-preview.png" />
+
+      <div className={styles.section}>
+        <TokenIndicator />
+        <Board gameData={gameData} />
       </div>
     </div>
   );

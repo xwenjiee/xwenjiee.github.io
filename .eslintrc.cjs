@@ -89,6 +89,7 @@ module.exports = {
     "react/jsx-no-duplicate-props": ["error", { ignoreCase: false }],
     "react/jsx-no-useless-fragment": ["error", { allowExpressions: true }],
     "react/jsx-props-no-spreading": "off",
+    "react/jsx-no-bind": "off",
     "react/no-danger": "off",
     "react/react-in-jsx-scope": "off",
     "react/require-default-props": "off",
